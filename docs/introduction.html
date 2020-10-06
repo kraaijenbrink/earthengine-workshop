@@ -21,10 +21,10 @@
   
   
 
-<meta name="author" content="Dr. Philip Kraaijenbrink" />
+<meta name="author" content="Philip Kraaijenbrink" />
 
 
-<meta name="date" content="2018-09-25" />
+<meta name="date" content="2020-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,19 +132,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a>
 <ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#earth-engine-access"><i class="fa fa-check"></i>Earth Engine access</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#earth-engine-help"><i class="fa fa-check"></i>Earth Engine help</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#workshop-code"><i class="fa fa-check"></i>Workshop code</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#source"><i class="fa fa-check"></i>Source</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="image-classification.html"><a href="image-classification.html"><i class="fa fa-check"></i><b>1</b> Image classification</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="image-classification.html"><a href="image-classification.html#load-data"><i class="fa fa-check"></i><b>1.1</b> Load data</a></li>
+<li class="chapter" data-level="1.1" data-path="image-classification.html"><a href="image-classification.html#define-input-data"><i class="fa fa-check"></i><b>1.1</b> Define input data</a></li>
 <li class="chapter" data-level="1.2" data-path="image-classification.html"><a href="image-classification.html#obtain-training-data"><i class="fa fa-check"></i><b>1.2</b> Obtain training data</a></li>
 <li class="chapter" data-level="1.3" data-path="image-classification.html"><a href="image-classification.html#classify-image"><i class="fa fa-check"></i><b>1.3</b> Classify image</a></li>
 <li class="chapter" data-level="1.4" data-path="image-classification.html"><a href="image-classification.html#visualize-using-charts"><i class="fa fa-check"></i><b>1.4</b> Visualize using charts</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html"><i class="fa fa-check"></i><b>2</b> Quality mosaicking</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#load-data-1"><i class="fa fa-check"></i><b>2.1</b> Load data</a></li>
+<li class="chapter" data-level="2.1" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#define-input-data-1"><i class="fa fa-check"></i><b>2.1</b> Define input data</a></li>
 <li class="chapter" data-level="2.2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#mask-clouds-and-calculate-index"><i class="fa fa-check"></i><b>2.2</b> Mask clouds and calculate index</a></li>
 <li class="chapter" data-level="2.3" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#quality-mosaic-composite"><i class="fa fa-check"></i><b>2.3</b> Quality mosaic composite</a></li>
 <li class="chapter" data-level="2.4" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#classify-water"><i class="fa fa-check"></i><b>2.4</b> Classify water</a></li>
@@ -157,7 +158,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Climate data analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#load-data-2"><i class="fa fa-check"></i><b>4.1</b> Load data</a></li>
+<li class="chapter" data-level="4.1" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#define-input-data-2"><i class="fa fa-check"></i><b>4.1</b> Define input data</a></li>
 <li class="chapter" data-level="4.2" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#estimate-mean-temperature"><i class="fa fa-check"></i><b>4.2</b> Estimate mean temperature</a></li>
 <li class="chapter" data-level="4.3" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#determine-relative-change"><i class="fa fa-check"></i><b>4.3</b> Determine relative change</a></li>
 <li class="chapter" data-level="4.4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#make-charts"><i class="fa fa-check"></i><b>4.4</b> Make charts</a></li>
@@ -183,20 +184,27 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Google Earth Engine workshop</h1>
-<p class="author"><em><a href="https://www.uu.nl/staff/PDAKraaijenbrink">Dr. Philip Kraaijenbrink</a></em></p>
-<p class="date"><em>25 September 2018</em></p>
+<p class="author"><em><a href="https://www.uu.nl/staff/PDAKraaijenbrink">Philip Kraaijenbrink</a></em></p>
+<p class="date"><em>October 6, 2020</em></p>
 </div>
 <div id="introduction" class="section level1 unnumbered" number="">
 <h1>Introduction</h1>
 <p><img src="figures/form-logo-no-date.png" width="100%" /></p>
-<p><em>This content has been developed originally for an internal workshop at the Department of Physical Geography of Utrecht University.</em></p>
+<p><em>I developed this content originally in September 2018 for an internal workshop at the Department of Physical Geography of Utrecht University.</em></p>
 <p> </p>
 <p>The exercises of this workshop are meant to give you an idea of the capabilities of Google Earth Engine. Some code uses intermediate to advanced concepts and because of the different level of the workshop participants, all code has been pre-written and ready for copy-paste. More advanced participants are encouraged to dive deeper into the code, add additional code, and find their own solutions, and help others in understanding the analyses and code.</p>
-<p> </p>
-<p><strong>You can always search for help on functions in the docs tab on the top left panel, and that there is a concise <a href="https://developers.google.com/earth-engine/">online user guide</a> with clear examples, accessible via the help dropdown menu in the top right corner.</strong></p>
 <div id="earth-engine-access" class="section level2 unnumbered" number="">
 <h2>Earth Engine access</h2>
 <p>To use Google Earth Engine you need to <a href="https://earthengine.google.com/new_signup/">sign up</a> for the service first using a Google account.</p>
+</div>
+<div id="earth-engine-help" class="section level2 unnumbered" number="">
+<h2>Earth Engine help</h2>
+<p>There are various ways you can search for help on Earth Engine coding, among others:</p>
+<ul>
+<li>Function help is available through the <em>docs</em> tab on the top left panel of the web interface.</li>
+<li>A concise <a href="https://developers.google.com/earth-engine/">user guide</a> with clear examples is accessible via the help dropdown menu in the top right corner of the web interface.</li>
+<li>The developer discussion group is accessible via the help dropdown menu in the top right corner of the web interface. It has many discussions on a plethora of topics and often with example code written by other developers.</li>
+</ul>
 </div>
 <div id="workshop-code" class="section level2 unnumbered" number="">
 <h2>Workshop code</h2>

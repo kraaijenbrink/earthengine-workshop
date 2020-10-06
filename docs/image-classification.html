@@ -21,10 +21,10 @@
   
   
 
-<meta name="author" content="Dr. Philip Kraaijenbrink" />
+<meta name="author" content="Philip Kraaijenbrink" />
 
 
-<meta name="date" content="2018-09-25" />
+<meta name="date" content="2020-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,19 +132,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a>
 <ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#earth-engine-access"><i class="fa fa-check"></i>Earth Engine access</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#earth-engine-help"><i class="fa fa-check"></i>Earth Engine help</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#workshop-code"><i class="fa fa-check"></i>Workshop code</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#source"><i class="fa fa-check"></i>Source</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="image-classification.html"><a href="image-classification.html"><i class="fa fa-check"></i><b>1</b> Image classification</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="image-classification.html"><a href="image-classification.html#load-data"><i class="fa fa-check"></i><b>1.1</b> Load data</a></li>
+<li class="chapter" data-level="1.1" data-path="image-classification.html"><a href="image-classification.html#define-input-data"><i class="fa fa-check"></i><b>1.1</b> Define input data</a></li>
 <li class="chapter" data-level="1.2" data-path="image-classification.html"><a href="image-classification.html#obtain-training-data"><i class="fa fa-check"></i><b>1.2</b> Obtain training data</a></li>
 <li class="chapter" data-level="1.3" data-path="image-classification.html"><a href="image-classification.html#classify-image"><i class="fa fa-check"></i><b>1.3</b> Classify image</a></li>
 <li class="chapter" data-level="1.4" data-path="image-classification.html"><a href="image-classification.html#visualize-using-charts"><i class="fa fa-check"></i><b>1.4</b> Visualize using charts</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html"><i class="fa fa-check"></i><b>2</b> Quality mosaicking</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#load-data-1"><i class="fa fa-check"></i><b>2.1</b> Load data</a></li>
+<li class="chapter" data-level="2.1" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#define-input-data-1"><i class="fa fa-check"></i><b>2.1</b> Define input data</a></li>
 <li class="chapter" data-level="2.2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#mask-clouds-and-calculate-index"><i class="fa fa-check"></i><b>2.2</b> Mask clouds and calculate index</a></li>
 <li class="chapter" data-level="2.3" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#quality-mosaic-composite"><i class="fa fa-check"></i><b>2.3</b> Quality mosaic composite</a></li>
 <li class="chapter" data-level="2.4" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#classify-water"><i class="fa fa-check"></i><b>2.4</b> Classify water</a></li>
@@ -157,7 +158,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Climate data analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#load-data-2"><i class="fa fa-check"></i><b>4.1</b> Load data</a></li>
+<li class="chapter" data-level="4.1" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#define-input-data-2"><i class="fa fa-check"></i><b>4.1</b> Define input data</a></li>
 <li class="chapter" data-level="4.2" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#estimate-mean-temperature"><i class="fa fa-check"></i><b>4.2</b> Estimate mean temperature</a></li>
 <li class="chapter" data-level="4.3" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#determine-relative-change"><i class="fa fa-check"></i><b>4.3</b> Determine relative change</a></li>
 <li class="chapter" data-level="4.4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#make-charts"><i class="fa fa-check"></i><b>4.4</b> Make charts</a></li>
@@ -184,8 +185,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="image-classification" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Image classification</h1>
 <p><strong>Generate a Landsat 8 composite image, perform a landcover classification of the image, and compare class distribution over elevation in the Netherlands.</strong></p>
-<div id="load-data" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Load data</h2>
+<div id="define-input-data" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Define input data</h2>
 <p>First you will need to define the datasets to use. In this exercise you will use Landsat 8 surface reflectance data, AHN elevation data, and vector outlines of the Netherlands and dutch provinces. Copy and paste the lines below to a blank script:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="image-classification.html#cb1-1"></a><span class="co">// get landsat data from catalog</span></span>
 <span id="cb1-2"><a href="image-classification.html#cb1-2"></a><span class="kw">var</span> landsat  <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">&#39;LANDSAT/LC08/C01/T1_SR&#39;</span>)</span>
