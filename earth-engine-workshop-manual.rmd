@@ -47,17 +47,28 @@ knitr::include_graphics('figures/form-logo-no-date.png')
 
 The exercises of this workshop are meant to give you an idea of the capabilities of Google Earth Engine. Some code uses intermediate to advanced concepts and because of the different level of the workshop participants, all code has been pre-written and ready for copy-paste. More advanced participants are encouraged to dive deeper into the code, add additional code, and find their own solutions, and help others in understanding the analyses and code.
 
-To use earth engine you need to [sign up](https://earthengine.google.com/new_signup/) for the service first using a Google account.
-
-A script repository that holds working code of all the exercises as well as additional cases can be added to your own Earth Engine environment using the following URL:  
-<https://code.earthengine.google.com/?accept_repo=users/philipkraaijenbrink/dpg-workshop>
-
-You are also advised to add the open repository *Philip's tools* to your Earth Engine environment. This repository contains additional functions that are called by the scripts in this manual. By adding the repository to your environment, you can see the code and review its functionality:  
-<https://code.earthengine.google.com/?accept_repo=users/philipkraaijenbrink/tools>
-
 &nbsp;
 
-**Remember that you can search for help on functions in the docs tab on the top left panel, and that there is a concise [online user guide](https://developers.google.com/earth-engine/) with clear examples, accessible via the help dropdown menu in the top right corner.**
+**You can always search for help on functions in the docs tab on the top left panel, and that there is a concise [online user guide](https://developers.google.com/earth-engine/) with clear examples, accessible via the help dropdown menu in the top right corner.**
+
+## Earth Engine access {-}
+
+To use Google Earth Engine you need to [sign up](https://earthengine.google.com/new_signup/) for the service first using a Google account.
+
+
+## Workshop code {-}
+
+A script repository that holds working code of all the exercises as well as of additional cases can be added to your own Earth Engine environment using the following URL:  
+<https://code.earthengine.google.com/?accept_repo=users/philipkraaijenbrink/dpg-workshop>
+
+My [`earthengine-tools`](https://github.com/kraaijenbrink/earthengine-tools) repository contains additional functions that are called by the scripts in this manual. To review this code and/or assess its functionality you can visit:
+<https://github.com/kraaijenbrink/earthengine-tools>
+
+
+## Source {-}
+
+The source code of this manual, exercises and cases is available at:  
+<https://github.com/kraaijenbrink/earthengine-workshop>
 
 
 &nbsp;

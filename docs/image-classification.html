@@ -33,6 +33,7 @@
   
 <link rel="prev" href="introduction.html"/>
 <link rel="next" href="quality-mosaicking.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,18 +55,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -129,25 +129,34 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="1" data-path="image-classification.html"><a href="image-classification.html"><i class="fa fa-check"></i><b>1</b> Image classification</a><ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#earth-engine-access"><i class="fa fa-check"></i>Earth Engine access</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#workshop-code"><i class="fa fa-check"></i>Workshop code</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#source"><i class="fa fa-check"></i>Source</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="image-classification.html"><a href="image-classification.html"><i class="fa fa-check"></i><b>1</b> Image classification</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="image-classification.html"><a href="image-classification.html#load-data"><i class="fa fa-check"></i><b>1.1</b> Load data</a></li>
 <li class="chapter" data-level="1.2" data-path="image-classification.html"><a href="image-classification.html#obtain-training-data"><i class="fa fa-check"></i><b>1.2</b> Obtain training data</a></li>
 <li class="chapter" data-level="1.3" data-path="image-classification.html"><a href="image-classification.html#classify-image"><i class="fa fa-check"></i><b>1.3</b> Classify image</a></li>
 <li class="chapter" data-level="1.4" data-path="image-classification.html"><a href="image-classification.html#visualize-using-charts"><i class="fa fa-check"></i><b>1.4</b> Visualize using charts</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html"><i class="fa fa-check"></i><b>2</b> Quality mosaicking</a><ul>
+<li class="chapter" data-level="2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html"><i class="fa fa-check"></i><b>2</b> Quality mosaicking</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#load-data-1"><i class="fa fa-check"></i><b>2.1</b> Load data</a></li>
 <li class="chapter" data-level="2.2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#mask-clouds-and-calculate-index"><i class="fa fa-check"></i><b>2.2</b> Mask clouds and calculate index</a></li>
 <li class="chapter" data-level="2.3" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#quality-mosaic-composite"><i class="fa fa-check"></i><b>2.3</b> Quality mosaic composite</a></li>
 <li class="chapter" data-level="2.4" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#classify-water"><i class="fa fa-check"></i><b>2.4</b> Classify water</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> Regression</a><ul>
+<li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> Regression</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="regression.html"><a href="regression.html#settings-and-data"><i class="fa fa-check"></i><b>3.1</b> Settings and data</a></li>
 <li class="chapter" data-level="3.2" data-path="regression.html"><a href="regression.html#derive-annual-composites"><i class="fa fa-check"></i><b>3.2</b> Derive annual composites</a></li>
 <li class="chapter" data-level="3.3" data-path="regression.html"><a href="regression.html#calculate-temporal-trend"><i class="fa fa-check"></i><b>3.3</b> Calculate temporal trend</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Climate data analysis</a><ul>
+<li class="chapter" data-level="4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Climate data analysis</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#load-data-2"><i class="fa fa-check"></i><b>4.1</b> Load data</a></li>
 <li class="chapter" data-level="4.2" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#estimate-mean-temperature"><i class="fa fa-check"></i><b>4.2</b> Estimate mean temperature</a></li>
 <li class="chapter" data-level="4.3" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#determine-relative-change"><i class="fa fa-check"></i><b>4.3</b> Determine relative change</a></li>
@@ -172,37 +181,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="image-classification" class="section level1">
+<div id="image-classification" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Image classification</h1>
 <p><strong>Generate a Landsat 8 composite image, perform a landcover classification of the image, and compare class distribution over elevation in the Netherlands.</strong></p>
-<div id="load-data" class="section level2">
+<div id="load-data" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Load data</h2>
 <p>First you will need to define the datasets to use. In this exercise you will use Landsat 8 surface reflectance data, AHN elevation data, and vector outlines of the Netherlands and dutch provinces. Copy and paste the lines below to a blank script:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="image-classification.html#cb1-1"></a><span class="co">// get landsat data from catalog</span></span>
-<span id="cb1-2"><a href="image-classification.html#cb1-2"></a><span class="kw">var</span> landsat  <span class="op">=</span> <span class="va">ee</span>.<span class="at">ImageCollection</span>(<span class="st">&#39;LANDSAT/LC08/C01/T1_SR&#39;</span>)</span>
+<span id="cb1-2"><a href="image-classification.html#cb1-2"></a><span class="kw">var</span> landsat  <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">&#39;LANDSAT/LC08/C01/T1_SR&#39;</span>)</span>
 <span id="cb1-3"><a href="image-classification.html#cb1-3"></a> </span>
 <span id="cb1-4"><a href="image-classification.html#cb1-4"></a><span class="co">// get only scenes that overlap with NL, have less than 10% cloud cover, and</span></span>
 <span id="cb1-5"><a href="image-classification.html#cb1-5"></a><span class="co">// fall in the period 2015-2017</span></span>
-<span id="cb1-6"><a href="image-classification.html#cb1-6"></a><span class="kw">var</span> nl      <span class="op">=</span> <span class="va">ee</span>.<span class="at">FeatureCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/dpg-workshop/rijksgrens_nl&#39;</span>)</span>
-<span id="cb1-7"><a href="image-classification.html#cb1-7"></a><span class="kw">var</span> landsat <span class="op">=</span> <span class="va">landsat</span>.<span class="at">filterBounds</span>(nl)</span>
-<span id="cb1-8"><a href="image-classification.html#cb1-8"></a>                     .<span class="at">filterDate</span>(<span class="st">&#39;2015-01-01&#39;</span><span class="op">,</span><span class="st">&#39;2017-12-31&#39;</span>)</span>
-<span id="cb1-9"><a href="image-classification.html#cb1-9"></a>                     .<span class="at">filter</span>(<span class="va">ee</span>.<span class="va">Filter</span>.<span class="at">lte</span>(<span class="st">&#39;CLOUD_COVER&#39;</span><span class="op">,</span> <span class="dv">10</span>))</span>
+<span id="cb1-6"><a href="image-classification.html#cb1-6"></a><span class="kw">var</span> nl      <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/dpg-workshop/rijksgrens_nl&#39;</span>)</span>
+<span id="cb1-7"><a href="image-classification.html#cb1-7"></a><span class="kw">var</span> landsat <span class="op">=</span> landsat<span class="op">.</span><span class="fu">filterBounds</span>(nl)</span>
+<span id="cb1-8"><a href="image-classification.html#cb1-8"></a>                     <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">&#39;2015-01-01&#39;</span><span class="op">,</span><span class="st">&#39;2017-12-31&#39;</span>)</span>
+<span id="cb1-9"><a href="image-classification.html#cb1-9"></a>                     <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">lte</span>(<span class="st">&#39;CLOUD_COVER&#39;</span><span class="op">,</span> <span class="dv">10</span>))</span>
 <span id="cb1-10"><a href="image-classification.html#cb1-10"></a> </span>
 <span id="cb1-11"><a href="image-classification.html#cb1-11"></a><span class="co">// select subsat of image bands and rename them for easier reference</span></span>
 <span id="cb1-12"><a href="image-classification.html#cb1-12"></a><span class="co">// first select band subset, then loop over images in collection and rename the bands</span></span>
 <span id="cb1-13"><a href="image-classification.html#cb1-13"></a><span class="kw">var</span> landsat <span class="op">=</span> landsat</span>
-<span id="cb1-14"><a href="image-classification.html#cb1-14"></a>  .<span class="at">select</span>([<span class="st">&#39;B2&#39;</span><span class="op">,</span><span class="st">&#39;B3&#39;</span><span class="op">,</span><span class="st">&#39;B4&#39;</span><span class="op">,</span><span class="st">&#39;B5&#39;</span><span class="op">,</span><span class="st">&#39;B6&#39;</span><span class="op">,</span><span class="st">&#39;B7&#39;</span><span class="op">,</span><span class="st">&#39;B10&#39;</span>]) </span>
-<span id="cb1-15"><a href="image-classification.html#cb1-15"></a>  .<span class="at">map</span>(<span class="kw">function</span>(x)<span class="op">{</span><span class="cf">return</span> <span class="va">x</span>.<span class="at">rename</span>([<span class="st">&#39;blue&#39;</span><span class="op">,</span><span class="st">&#39;green&#39;</span><span class="op">,</span><span class="st">&#39;red&#39;</span><span class="op">,</span> <span class="st">&#39;nir&#39;</span><span class="op">,</span><span class="st">&#39;swir1&#39;</span><span class="op">,</span><span class="st">&#39;swir2&#39;</span><span class="op">,</span><span class="st">&#39;tir&#39;</span>])<span class="op">}</span>)</span></code></pre></div>
+<span id="cb1-14"><a href="image-classification.html#cb1-14"></a>  <span class="op">.</span><span class="fu">select</span>([<span class="st">&#39;B2&#39;</span><span class="op">,</span><span class="st">&#39;B3&#39;</span><span class="op">,</span><span class="st">&#39;B4&#39;</span><span class="op">,</span><span class="st">&#39;B5&#39;</span><span class="op">,</span><span class="st">&#39;B6&#39;</span><span class="op">,</span><span class="st">&#39;B7&#39;</span><span class="op">,</span><span class="st">&#39;B10&#39;</span>]) </span>
+<span id="cb1-15"><a href="image-classification.html#cb1-15"></a>  <span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(x){<span class="cf">return</span> x<span class="op">.</span><span class="fu">rename</span>([<span class="st">&#39;blue&#39;</span><span class="op">,</span><span class="st">&#39;green&#39;</span><span class="op">,</span><span class="st">&#39;red&#39;</span><span class="op">,</span> <span class="st">&#39;nir&#39;</span><span class="op">,</span><span class="st">&#39;swir1&#39;</span><span class="op">,</span><span class="st">&#39;swir2&#39;</span><span class="op">,</span><span class="st">&#39;tir&#39;</span>])})</span></code></pre></div>
 <p> </p>
 <p>To get a quick cloud free composite of the filtered Landsat 8 image collection, use a median reducer to generate a single composite image whose pixels comprise the median value of the collection. Using the median makes sure that the cloud pixels are not selected because they are always close to the maximum values.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="image-classification.html#cb2-1"></a><span class="co">// for every pixel, get the median pixel value of all images in the collection</span></span>
 <span id="cb2-2"><a href="image-classification.html#cb2-2"></a><span class="co">// for a quick way to filter clouds and possible artefacts</span></span>
-<span id="cb2-3"><a href="image-classification.html#cb2-3"></a><span class="kw">var</span> satimg <span class="op">=</span> <span class="va">landsat</span>.<span class="at">median</span>()</span>
+<span id="cb2-3"><a href="image-classification.html#cb2-3"></a><span class="kw">var</span> satimg <span class="op">=</span> landsat<span class="op">.</span><span class="fu">median</span>()</span>
 <span id="cb2-4"><a href="image-classification.html#cb2-4"></a> </span>
 <span id="cb2-5"><a href="image-classification.html#cb2-5"></a><span class="co">// clip the result to the outline of NL</span></span>
-<span id="cb2-6"><a href="image-classification.html#cb2-6"></a><span class="kw">var</span> satimg <span class="op">=</span> <span class="va">satimg</span>.<span class="at">clip</span>(nl)</span></code></pre></div>
+<span id="cb2-6"><a href="image-classification.html#cb2-6"></a><span class="kw">var</span> satimg <span class="op">=</span> satimg<span class="op">.</span><span class="fu">clip</span>(nl)</span></code></pre></div>
 </div>
-<div id="obtain-training-data" class="section level2">
+<div id="obtain-training-data" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Obtain training data</h2>
 <p>Visualize the data using <code>Map.addLayer()</code>, similar to example code on the previous page. Select a band combination that clearly shows the different land cover types.</p>
 <p>To perform classification of the composite image you first need to define training data. This is performed by drawing polygons on the image to sample pixels of a land cover class. In this exercise you will classify the following classes:
@@ -226,27 +235,27 @@ Figure 1.2: The geometry settings dialog.
 <p> </p>
 <p>When you have created the polygons for all classes, combine them into a feature collection using the following code (check whether the layer names match yours).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="image-classification.html#cb3-1"></a><span class="co">// combine the sample regions you&#39;ve create into a single collection</span></span>
-<span id="cb3-2"><a href="image-classification.html#cb3-2"></a><span class="kw">var</span> sampleregs  <span class="op">=</span> <span class="va">ee</span>.<span class="at">FeatureCollection</span>([grass<span class="op">,</span>forest<span class="op">,</span>water<span class="op">,</span>built_up<span class="op">,</span>bare<span class="op">,</span>crop])</span></code></pre></div>
+<span id="cb3-2"><a href="image-classification.html#cb3-2"></a><span class="kw">var</span> sampleregs  <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>([grass<span class="op">,</span>forest<span class="op">,</span>water<span class="op">,</span>built_up<span class="op">,</span>bare<span class="op">,</span>crop])</span></code></pre></div>
 </div>
-<div id="classify-image" class="section level2">
+<div id="classify-image" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Classify image</h2>
 <p>Using the polygons, we will now sample pixels from the image and use them as training data for the classification algorithm. You will use a simple minimum distance classifier, but there are many more advanced options available. To generate the classified image use:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="image-classification.html#cb4-1"></a><span class="co">// selection of bands to use for classification algorithm</span></span>
 <span id="cb4-2"><a href="image-classification.html#cb4-2"></a><span class="kw">var</span> bands   <span class="op">=</span> [<span class="st">&#39;green&#39;</span><span class="op">,</span><span class="st">&#39;red&#39;</span><span class="op">,</span><span class="st">&#39;nir&#39;</span><span class="op">,</span><span class="st">&#39;swir1&#39;</span><span class="op">,</span><span class="st">&#39;swir2&#39;</span>]</span>
 <span id="cb4-3"><a href="image-classification.html#cb4-3"></a> </span>
 <span id="cb4-4"><a href="image-classification.html#cb4-4"></a><span class="co">// sample pixels from the image using the regions</span></span>
-<span id="cb4-5"><a href="image-classification.html#cb4-5"></a><span class="kw">var</span> training <span class="op">=</span> <span class="va">satimg</span>.<span class="at">sampleRegions</span>(<span class="op">{</span></span>
+<span id="cb4-5"><a href="image-classification.html#cb4-5"></a><span class="kw">var</span> training <span class="op">=</span> satimg<span class="op">.</span><span class="fu">sampleRegions</span>({</span>
 <span id="cb4-6"><a href="image-classification.html#cb4-6"></a>  <span class="dt">collection</span><span class="op">:</span> sampleregs<span class="op">,</span></span>
 <span id="cb4-7"><a href="image-classification.html#cb4-7"></a>  <span class="dt">properties</span><span class="op">:</span> [<span class="st">&#39;class&#39;</span>]<span class="op">,</span></span>
 <span id="cb4-8"><a href="image-classification.html#cb4-8"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span></span>
-<span id="cb4-9"><a href="image-classification.html#cb4-9"></a><span class="op">}</span>)</span>
+<span id="cb4-9"><a href="image-classification.html#cb4-9"></a>})</span>
 <span id="cb4-10"><a href="image-classification.html#cb4-10"></a></span>
 <span id="cb4-11"><a href="image-classification.html#cb4-11"></a><span class="co">// define classifier and train with the samples</span></span>
-<span id="cb4-12"><a href="image-classification.html#cb4-12"></a><span class="kw">var</span> mdmodel  <span class="op">=</span> <span class="va">ee</span>.<span class="va">Classifier</span>.<span class="at">minimumDistance</span>(<span class="st">&#39;euclidean&#39;</span>)</span>
-<span id="cb4-13"><a href="image-classification.html#cb4-13"></a><span class="kw">var</span> trained  <span class="op">=</span> <span class="va">mdmodel</span>.<span class="at">train</span>(training<span class="op">,</span> <span class="st">&#39;class&#39;</span><span class="op">,</span> bands)</span>
+<span id="cb4-12"><a href="image-classification.html#cb4-12"></a><span class="kw">var</span> mdmodel  <span class="op">=</span> ee<span class="op">.</span><span class="at">Classifier</span><span class="op">.</span><span class="fu">minimumDistance</span>(<span class="st">&#39;euclidean&#39;</span>)</span>
+<span id="cb4-13"><a href="image-classification.html#cb4-13"></a><span class="kw">var</span> trained  <span class="op">=</span> mdmodel<span class="op">.</span><span class="fu">train</span>(training<span class="op">,</span> <span class="st">&#39;class&#39;</span><span class="op">,</span> bands)</span>
 <span id="cb4-14"><a href="image-classification.html#cb4-14"></a></span>
 <span id="cb4-15"><a href="image-classification.html#cb4-15"></a><span class="co">// apply classifier to the image</span></span>
-<span id="cb4-16"><a href="image-classification.html#cb4-16"></a><span class="kw">var</span> classimg <span class="op">=</span> <span class="va">satimg</span>.<span class="at">classify</span>(trained)</span></code></pre></div>
+<span id="cb4-16"><a href="image-classification.html#cb4-16"></a><span class="kw">var</span> classimg <span class="op">=</span> satimg<span class="op">.</span><span class="fu">classify</span>(trained)</span></code></pre></div>
 <p> </p>
 <p>Define a list with class names, values and display colors to use for mapping and charting:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="image-classification.html#cb5-1"></a><span class="co">// lists with class names, values and colors (for colors use hex RGB or html5 color names)</span></span>
@@ -255,78 +264,78 @@ Figure 1.2: The geometry settings dialog.
 <span id="cb5-4"><a href="image-classification.html#cb5-4"></a><span class="kw">var</span> classcol <span class="op">=</span> [<span class="st">&#39;YellowGreen&#39;</span><span class="op">,</span> <span class="st">&#39;184930&#39;</span><span class="op">,</span> <span class="st">&#39;LightSkyBlue&#39;</span><span class="op">,</span> <span class="st">&#39;#cacaca&#39;</span><span class="op">,</span> <span class="st">&#39;Moccasin&#39;</span><span class="op">,</span> <span class="st">&#39;OliveDrab&#39;</span>]  </span></code></pre></div>
 <p> </p>
 <p>Add the classification to the map using:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="image-classification.html#cb6-1"></a><span class="va">Map</span>.<span class="at">addLayer</span>(classimg<span class="op">,</span> <span class="op">{</span><span class="dt">min</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="dv">5</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> classcol<span class="op">},</span> <span class="st">&#39;Classification&#39;</span><span class="op">,</span><span class="kw">true</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="image-classification.html#cb6-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(classimg<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="dv">5</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> classcol}<span class="op">,</span> <span class="st">&#39;Classification&#39;</span><span class="op">,</span><span class="kw">true</span>)</span></code></pre></div>
 <p> </p>
 <p>If you would like, you can add a quick legend to the map using this predefined function:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="image-classification.html#cb7-1"></a><span class="kw">var</span> lg <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;users/philipkraaijenbrink/tools:legends&#39;</span>)</span>
-<span id="cb7-2"><a href="image-classification.html#cb7-2"></a><span class="va">lg</span>.<span class="at">classLegend</span>(classval<span class="op">,</span> classlab<span class="op">,</span> classcol)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="image-classification.html#cb7-1"></a><span class="kw">var</span> lg <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;users/philipkraaijenbrink/tools:legends&#39;</span>)</span>
+<span id="cb7-2"><a href="image-classification.html#cb7-2"></a>lg<span class="op">.</span><span class="fu">classLegend</span>(classval<span class="op">,</span> classlab<span class="op">,</span> classcol)</span></code></pre></div>
 <p> </p>
 <p>Evaluate the classification accuracy. Has it performed well? If not, change your polygons and/or add extra.</p>
 </div>
-<div id="visualize-using-charts" class="section level2">
+<div id="visualize-using-charts" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Visualize using charts</h2>
 <p>To get information about the class distribution in the Netherlands, generate a barchart showing approximate area per class. This can be done using the following code:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="image-classification.html#cb8-1"></a><span class="co">// chart that shows class area distribution</span></span>
-<span id="cb8-2"><a href="image-classification.html#cb8-2"></a><span class="kw">var</span> nl <span class="op">=</span> <span class="va">ee</span>.<span class="at">FeatureCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/dpg-workshop/rijksgrens_nl&#39;</span>)</span>
-<span id="cb8-3"><a href="image-classification.html#cb8-3"></a><span class="kw">var</span> chart <span class="op">=</span> <span class="va">ui</span>.<span class="va">Chart</span>.<span class="va">image</span>.<span class="at">byClass</span>(<span class="op">{</span></span>
-<span id="cb8-4"><a href="image-classification.html#cb8-4"></a>  <span class="dt">image</span><span class="op">:</span> <span class="va">ee</span>.<span class="va">Image</span>.<span class="at">pixelArea</span>().<span class="at">multiply</span>(<span class="fl">1e-6</span>)        <span class="co">// pixel area in km2</span></span>
-<span id="cb8-5"><a href="image-classification.html#cb8-5"></a>            .<span class="at">addBands</span>(<span class="va">classimg</span>.<span class="at">rename</span>(<span class="st">&#39;classification&#39;</span>))<span class="op">,</span></span>
+<span id="cb8-2"><a href="image-classification.html#cb8-2"></a><span class="kw">var</span> nl <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/dpg-workshop/rijksgrens_nl&#39;</span>)</span>
+<span id="cb8-3"><a href="image-classification.html#cb8-3"></a><span class="kw">var</span> chart <span class="op">=</span> ui<span class="op">.</span><span class="at">Chart</span><span class="op">.</span><span class="at">image</span><span class="op">.</span><span class="fu">byClass</span>({</span>
+<span id="cb8-4"><a href="image-classification.html#cb8-4"></a>  <span class="dt">image</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Image</span><span class="op">.</span><span class="fu">pixelArea</span>()<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">1e-6</span>)        <span class="co">// pixel area in km2</span></span>
+<span id="cb8-5"><a href="image-classification.html#cb8-5"></a>            <span class="op">.</span><span class="fu">addBands</span>(classimg<span class="op">.</span><span class="fu">rename</span>(<span class="st">&#39;classification&#39;</span>))<span class="op">,</span></span>
 <span id="cb8-6"><a href="image-classification.html#cb8-6"></a>  <span class="dt">classBand</span><span class="op">:</span> <span class="st">&#39;classification&#39;</span><span class="op">,</span>                     </span>
 <span id="cb8-7"><a href="image-classification.html#cb8-7"></a>  <span class="dt">region</span><span class="op">:</span> nl<span class="op">,</span></span>
-<span id="cb8-8"><a href="image-classification.html#cb8-8"></a>  <span class="dt">reducer</span><span class="op">:</span> <span class="va">ee</span>.<span class="va">Reducer</span>.<span class="at">sum</span>()<span class="op">,</span></span>
+<span id="cb8-8"><a href="image-classification.html#cb8-8"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">sum</span>()<span class="op">,</span></span>
 <span id="cb8-9"><a href="image-classification.html#cb8-9"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">*</span><span class="dv">30</span><span class="op">,</span></span>
 <span id="cb8-10"><a href="image-classification.html#cb8-10"></a>  <span class="dt">classLabels</span><span class="op">:</span> classlab<span class="op">,</span></span>
-<span id="cb8-11"><a href="image-classification.html#cb8-11"></a><span class="op">}</span>)</span>
-<span id="cb8-12"><a href="image-classification.html#cb8-12"></a><span class="va">chart</span>.<span class="at">setOptions</span>(<span class="op">{</span><span class="dt">title</span><span class="op">:</span><span class="st">&#39;Area per class&#39;</span><span class="op">,</span> <span class="dt">hAxis</span><span class="op">:</span> <span class="op">{</span><span class="dt">title</span><span class="op">:</span> <span class="st">&#39;&#39;</span><span class="op">},</span> <span class="dt">vAxis</span><span class="op">:</span> <span class="op">{</span><span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Area (km2)&#39;</span><span class="op">},</span></span>
-<span id="cb8-13"><a href="image-classification.html#cb8-13"></a>                 <span class="dt">colors</span><span class="op">:</span> classcol<span class="op">}</span>)</span>
-<span id="cb8-14"><a href="image-classification.html#cb8-14"></a>     .<span class="at">setChartType</span>(<span class="st">&#39;ColumnChart&#39;</span>)</span>
-<span id="cb8-15"><a href="image-classification.html#cb8-15"></a><span class="at">print</span>(chart)</span></code></pre></div>
+<span id="cb8-11"><a href="image-classification.html#cb8-11"></a>})</span>
+<span id="cb8-12"><a href="image-classification.html#cb8-12"></a>chart<span class="op">.</span><span class="fu">setOptions</span>({<span class="dt">title</span><span class="op">:</span><span class="st">&#39;Area per class&#39;</span><span class="op">,</span> <span class="dt">hAxis</span><span class="op">:</span> {<span class="dt">title</span><span class="op">:</span> <span class="st">&#39;&#39;</span>}<span class="op">,</span> <span class="dt">vAxis</span><span class="op">:</span> {<span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Area (km2)&#39;</span>}<span class="op">,</span></span>
+<span id="cb8-13"><a href="image-classification.html#cb8-13"></a>                 <span class="dt">colors</span><span class="op">:</span> classcol})</span>
+<span id="cb8-14"><a href="image-classification.html#cb8-14"></a>     <span class="op">.</span><span class="fu">setChartType</span>(<span class="st">&#39;ColumnChart&#39;</span>)</span>
+<span id="cb8-15"><a href="image-classification.html#cb8-15"></a>print(chart)</span></code></pre></div>
 <p> </p>
 <p>To get a sense of class distribution with elevation in the Netherlands, first extract elevation bands from the detailed 0.5 m resolution elevation model Algemeen Hoogtebestand Nederland (AHN):</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="image-classification.html#cb9-1"></a><span class="co">// get equidistant elevation bands from AHN for charting</span></span>
-<span id="cb9-2"><a href="image-classification.html#cb9-2"></a><span class="kw">var</span> elev <span class="op">=</span> <span class="va">ee</span>.<span class="at">Image</span>(<span class="st">&#39;AHN/AHN2_05M_INT&#39;</span>)     <span class="co">// get AHN dataset from catalog</span></span>
+<span id="cb9-2"><a href="image-classification.html#cb9-2"></a><span class="kw">var</span> elev <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">&#39;AHN/AHN2_05M_INT&#39;</span>)     <span class="co">// get AHN dataset from catalog</span></span>
 <span id="cb9-3"><a href="image-classification.html#cb9-3"></a><span class="kw">var</span> stepping  <span class="op">=</span> <span class="fl">1.0</span>                         <span class="co">// elevation step size</span></span>
-<span id="cb9-4"><a href="image-classification.html#cb9-4"></a><span class="kw">var</span> elevsteps <span class="op">=</span> <span class="va">ee</span>.<span class="va">List</span>.<span class="at">sequence</span>(<span class="op">-</span><span class="dv">5</span><span class="op">,</span><span class="dv">50</span><span class="op">,</span>stepping)     <span class="co">// get steps in range</span></span>
-<span id="cb9-5"><a href="image-classification.html#cb9-5"></a><span class="kw">var</span> itr <span class="op">=</span> <span class="va">ee</span>.<span class="va">List</span>.<span class="at">sequence</span>(<span class="dv">0</span><span class="op">,</span><span class="va">elevsteps</span>.<span class="at">length</span>().<span class="at">subtract</span>(<span class="dv">1</span>)<span class="op">,</span><span class="dv">1</span>)  <span class="co">// iterator list to loop over</span></span>
-<span id="cb9-6"><a href="image-classification.html#cb9-6"></a><span class="kw">var</span> elevbands   <span class="op">=</span> <span class="va">ee</span>.<span class="va">ImageCollection</span>.<span class="at">fromImages</span>(<span class="va">itr</span>.<span class="at">map</span>(<span class="kw">function</span>(i)<span class="op">{</span>  <span class="co">// loop over iterator i</span></span>
-<span id="cb9-7"><a href="image-classification.html#cb9-7"></a>  <span class="kw">var</span> elevthres <span class="op">=</span>  <span class="va">ee</span>.<span class="at">Number</span>(<span class="va">elevsteps</span>.<span class="at">get</span>(i))                        <span class="co">// get elev_i</span></span>
-<span id="cb9-8"><a href="image-classification.html#cb9-8"></a>  <span class="kw">var</span> elevband <span class="op">=</span> <span class="va">elev</span>.<span class="at">lte</span>(elevthres).<span class="at">and</span>(<span class="va">elev</span>.<span class="at">gt</span>(<span class="va">elevthres</span>.<span class="at">subtract</span>(stepping))) <span class="co">// elev band</span></span>
-<span id="cb9-9"><a href="image-classification.html#cb9-9"></a>  <span class="kw">var</span> onlyband <span class="op">=</span> <span class="va">elevband</span>.<span class="at">updateMask</span>(<span class="va">elevband</span>.<span class="at">eq</span>(<span class="dv">1</span>))         <span class="co">// mask everything but true</span></span>
-<span id="cb9-10"><a href="image-classification.html#cb9-10"></a>  <span class="cf">return</span> <span class="va">onlyband</span>.<span class="at">set</span>(<span class="st">&#39;system:index&#39;</span><span class="op">,</span><span class="va">ee</span>.<span class="va">Number</span>.<span class="at">parse</span>(i).<span class="at">format</span>(<span class="st">&#39;%04d&#39;</span>))  <span class="co">// set image index</span></span>
-<span id="cb9-11"><a href="image-classification.html#cb9-11"></a><span class="op">}</span>))</span></code></pre></div>
+<span id="cb9-4"><a href="image-classification.html#cb9-4"></a><span class="kw">var</span> elevsteps <span class="op">=</span> ee<span class="op">.</span><span class="at">List</span><span class="op">.</span><span class="fu">sequence</span>(<span class="op">-</span><span class="dv">5</span><span class="op">,</span><span class="dv">50</span><span class="op">,</span>stepping)     <span class="co">// get steps in range</span></span>
+<span id="cb9-5"><a href="image-classification.html#cb9-5"></a><span class="kw">var</span> itr <span class="op">=</span> ee<span class="op">.</span><span class="at">List</span><span class="op">.</span><span class="fu">sequence</span>(<span class="dv">0</span><span class="op">,</span>elevsteps<span class="op">.</span><span class="fu">length</span>()<span class="op">.</span><span class="fu">subtract</span>(<span class="dv">1</span>)<span class="op">,</span><span class="dv">1</span>)  <span class="co">// iterator list to loop over</span></span>
+<span id="cb9-6"><a href="image-classification.html#cb9-6"></a><span class="kw">var</span> elevbands   <span class="op">=</span> ee<span class="op">.</span><span class="at">ImageCollection</span><span class="op">.</span><span class="fu">fromImages</span>(itr<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(i){  <span class="co">// loop over iterator i</span></span>
+<span id="cb9-7"><a href="image-classification.html#cb9-7"></a>  <span class="kw">var</span> elevthres <span class="op">=</span>  ee<span class="op">.</span><span class="fu">Number</span>(elevsteps<span class="op">.</span><span class="fu">get</span>(i))                        <span class="co">// get elev_i</span></span>
+<span id="cb9-8"><a href="image-classification.html#cb9-8"></a>  <span class="kw">var</span> elevband <span class="op">=</span> elev<span class="op">.</span><span class="fu">lte</span>(elevthres)<span class="op">.</span><span class="fu">and</span>(elev<span class="op">.</span><span class="fu">gt</span>(elevthres<span class="op">.</span><span class="fu">subtract</span>(stepping))) <span class="co">// elev band</span></span>
+<span id="cb9-9"><a href="image-classification.html#cb9-9"></a>  <span class="kw">var</span> onlyband <span class="op">=</span> elevband<span class="op">.</span><span class="fu">updateMask</span>(elevband<span class="op">.</span><span class="fu">eq</span>(<span class="dv">1</span>))         <span class="co">// mask everything but true</span></span>
+<span id="cb9-10"><a href="image-classification.html#cb9-10"></a>  <span class="cf">return</span> onlyband<span class="op">.</span><span class="fu">set</span>(<span class="st">&#39;system:index&#39;</span><span class="op">,</span>ee<span class="op">.</span><span class="at">Number</span><span class="op">.</span><span class="fu">parse</span>(i)<span class="op">.</span><span class="fu">format</span>(<span class="st">&#39;%04d&#39;</span>))  <span class="co">// set image index</span></span>
+<span id="cb9-11"><a href="image-classification.html#cb9-11"></a>}))</span></code></pre></div>
 <p> </p>
 <p>Make a chart of the elevation bands that evaluates the area per class per elevation band:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb10-1"><a href="image-classification.html#cb10-1"></a><span class="co">// make chart of pixel count per class per elevation band</span></span>
-<span id="cb10-2"><a href="image-classification.html#cb10-2"></a><span class="kw">var</span> chart <span class="op">=</span> <span class="va">ui</span>.<span class="va">Chart</span>.<span class="va">image</span>.<span class="at">byClass</span>(<span class="op">{</span></span>
-<span id="cb10-3"><a href="image-classification.html#cb10-3"></a>  <span class="dt">image</span><span class="op">:</span> <span class="va">elevbands</span>.<span class="at">toBands</span>().<span class="at">addBands</span>(<span class="va">classimg</span>.<span class="at">rename</span>(<span class="st">&#39;classification&#39;</span>))<span class="op">,</span></span>
+<span id="cb10-2"><a href="image-classification.html#cb10-2"></a><span class="kw">var</span> chart <span class="op">=</span> ui<span class="op">.</span><span class="at">Chart</span><span class="op">.</span><span class="at">image</span><span class="op">.</span><span class="fu">byClass</span>({</span>
+<span id="cb10-3"><a href="image-classification.html#cb10-3"></a>  <span class="dt">image</span><span class="op">:</span> elevbands<span class="op">.</span><span class="fu">toBands</span>()<span class="op">.</span><span class="fu">addBands</span>(classimg<span class="op">.</span><span class="fu">rename</span>(<span class="st">&#39;classification&#39;</span>))<span class="op">,</span></span>
 <span id="cb10-4"><a href="image-classification.html#cb10-4"></a>  <span class="dt">classBand</span><span class="op">:</span> <span class="st">&#39;classification&#39;</span><span class="op">,</span></span>
 <span id="cb10-5"><a href="image-classification.html#cb10-5"></a>  <span class="dt">region</span><span class="op">:</span> nl<span class="op">,</span></span>
-<span id="cb10-6"><a href="image-classification.html#cb10-6"></a>  <span class="dt">reducer</span><span class="op">:</span> <span class="va">ee</span>.<span class="va">Reducer</span>.<span class="at">sum</span>()<span class="op">,</span></span>
+<span id="cb10-6"><a href="image-classification.html#cb10-6"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">sum</span>()<span class="op">,</span></span>
 <span id="cb10-7"><a href="image-classification.html#cb10-7"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">*</span><span class="dv">30</span><span class="op">,</span></span>
 <span id="cb10-8"><a href="image-classification.html#cb10-8"></a>  <span class="dt">classLabels</span><span class="op">:</span> classlab<span class="op">,</span></span>
-<span id="cb10-9"><a href="image-classification.html#cb10-9"></a>  <span class="dt">xLabels</span><span class="op">:</span> <span class="va">elevsteps</span>.<span class="at">getInfo</span>()<span class="op">,</span></span>
-<span id="cb10-10"><a href="image-classification.html#cb10-10"></a><span class="op">}</span>)</span>
-<span id="cb10-11"><a href="image-classification.html#cb10-11"></a><span class="va">chart</span>.<span class="at">setOptions</span>(<span class="op">{</span><span class="dt">title</span><span class="op">:</span><span class="st">&#39;Land cover with elevation&#39;</span><span class="op">,</span> <span class="dt">hAxis</span><span class="op">:</span> <span class="op">{</span><span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Elevation (m)&#39;</span><span class="op">},</span></span>
-<span id="cb10-12"><a href="image-classification.html#cb10-12"></a>                <span class="dt">lineWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">pointSize</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">colors</span><span class="op">:</span> classcol<span class="op">,</span> <span class="dt">isStacked</span><span class="op">:</span> <span class="st">&#39;absolute&#39;</span><span class="op">}</span>)</span>
-<span id="cb10-13"><a href="image-classification.html#cb10-13"></a>     .<span class="at">setChartType</span>(<span class="st">&#39;AreaChart&#39;</span>)</span>
-<span id="cb10-14"><a href="image-classification.html#cb10-14"></a><span class="at">print</span>(chart)</span></code></pre></div>
+<span id="cb10-9"><a href="image-classification.html#cb10-9"></a>  <span class="dt">xLabels</span><span class="op">:</span> elevsteps<span class="op">.</span><span class="fu">getInfo</span>()<span class="op">,</span></span>
+<span id="cb10-10"><a href="image-classification.html#cb10-10"></a>})</span>
+<span id="cb10-11"><a href="image-classification.html#cb10-11"></a>chart<span class="op">.</span><span class="fu">setOptions</span>({<span class="dt">title</span><span class="op">:</span><span class="st">&#39;Land cover with elevation&#39;</span><span class="op">,</span> <span class="dt">hAxis</span><span class="op">:</span> {<span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Elevation (m)&#39;</span>}<span class="op">,</span></span>
+<span id="cb10-12"><a href="image-classification.html#cb10-12"></a>                <span class="dt">lineWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">pointSize</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">colors</span><span class="op">:</span> classcol<span class="op">,</span> <span class="dt">isStacked</span><span class="op">:</span> <span class="st">&#39;absolute&#39;</span>})</span>
+<span id="cb10-13"><a href="image-classification.html#cb10-13"></a>     <span class="op">.</span><span class="fu">setChartType</span>(<span class="st">&#39;AreaChart&#39;</span>)</span>
+<span id="cb10-14"><a href="image-classification.html#cb10-14"></a>print(chart)</span></code></pre></div>
 <p> </p>
 <p>To determine the fractional coverage of each elevation band, change the string <em>absolute</em> to <em>relative</em> or <em>percent</em> in the <code>setOptions()</code> function in the code above.</p>
 <p>You can also summarize images for every region in a vector dataset using <code>ui.Chart.image.byRegion()</code>. For example class area per province in the Netherlands:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a href="image-classification.html#cb11-1"></a><span class="co">// make a chart for class distribution in each province</span></span>
-<span id="cb11-2"><a href="image-classification.html#cb11-2"></a><span class="kw">var</span> prov <span class="op">=</span> <span class="va">ee</span>.<span class="at">FeatureCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/dpg-workshop/provincies_nl&#39;</span>)</span>
-<span id="cb11-3"><a href="image-classification.html#cb11-3"></a><span class="kw">var</span> sepclass <span class="op">=</span> <span class="va">ee</span>.<span class="at">Image</span>(<span class="va">ee</span>.<span class="at">List</span>(classval).<span class="at">iterate</span>(</span>
-<span id="cb11-4"><a href="image-classification.html#cb11-4"></a>  <span class="kw">function</span>(x<span class="op">,</span>y)<span class="op">{</span><span class="cf">return</span> <span class="va">ee</span>.<span class="at">Image</span>(y).<span class="at">addBands</span>(<span class="va">classimg</span>.<span class="at">eq</span>(<span class="va">ee</span>.<span class="va">Image</span>.<span class="at">constant</span>(x)))<span class="op">},</span></span>
-<span id="cb11-5"><a href="image-classification.html#cb11-5"></a>  <span class="va">ee</span>.<span class="at">Image</span>().<span class="at">select</span>()))</span>
-<span id="cb11-6"><a href="image-classification.html#cb11-6"></a><span class="kw">var</span> chartlab <span class="op">=</span> []<span class="op">;</span> <span class="va">classval</span>.<span class="at">forEach</span>(<span class="kw">function</span>(val<span class="op">,</span>i)<span class="op">{</span><span class="va">chartlab</span>.<span class="at">push</span>(val<span class="op">+</span><span class="st">&#39; &#39;</span><span class="op">+</span>classlab[i])<span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb11-7"><a href="image-classification.html#cb11-7"></a><span class="kw">var</span> chart <span class="op">=</span> <span class="va">ui</span>.<span class="va">Chart</span>.<span class="va">image</span>.<span class="at">byRegion</span>(<span class="op">{</span></span>
-<span id="cb11-8"><a href="image-classification.html#cb11-8"></a>  <span class="dt">image</span><span class="op">:</span> <span class="va">sepclass</span>.<span class="at">rename</span>(chartlab)<span class="op">,</span></span>
+<span id="cb11-2"><a href="image-classification.html#cb11-2"></a><span class="kw">var</span> prov <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/dpg-workshop/provincies_nl&#39;</span>)</span>
+<span id="cb11-3"><a href="image-classification.html#cb11-3"></a><span class="kw">var</span> sepclass <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(ee<span class="op">.</span><span class="fu">List</span>(classval)<span class="op">.</span><span class="fu">iterate</span>(</span>
+<span id="cb11-4"><a href="image-classification.html#cb11-4"></a>  <span class="kw">function</span>(x<span class="op">,</span>y){<span class="cf">return</span> ee<span class="op">.</span><span class="fu">Image</span>(y)<span class="op">.</span><span class="fu">addBands</span>(classimg<span class="op">.</span><span class="fu">eq</span>(ee<span class="op">.</span><span class="at">Image</span><span class="op">.</span><span class="fu">constant</span>(x)))}<span class="op">,</span></span>
+<span id="cb11-5"><a href="image-classification.html#cb11-5"></a>  ee<span class="op">.</span><span class="fu">Image</span>()<span class="op">.</span><span class="fu">select</span>()))</span>
+<span id="cb11-6"><a href="image-classification.html#cb11-6"></a><span class="kw">var</span> chartlab <span class="op">=</span> []<span class="op">;</span> classval<span class="op">.</span><span class="fu">forEach</span>(<span class="kw">function</span>(val<span class="op">,</span>i){chartlab<span class="op">.</span><span class="fu">push</span>(val<span class="op">+</span><span class="st">&#39; &#39;</span><span class="op">+</span>classlab[i])})<span class="op">;</span></span>
+<span id="cb11-7"><a href="image-classification.html#cb11-7"></a><span class="kw">var</span> chart <span class="op">=</span> ui<span class="op">.</span><span class="at">Chart</span><span class="op">.</span><span class="at">image</span><span class="op">.</span><span class="fu">byRegion</span>({</span>
+<span id="cb11-8"><a href="image-classification.html#cb11-8"></a>  <span class="dt">image</span><span class="op">:</span> sepclass<span class="op">.</span><span class="fu">rename</span>(chartlab)<span class="op">,</span></span>
 <span id="cb11-9"><a href="image-classification.html#cb11-9"></a>  <span class="dt">regions</span><span class="op">:</span> prov<span class="op">,</span></span>
-<span id="cb11-10"><a href="image-classification.html#cb11-10"></a>  <span class="dt">reducer</span><span class="op">:</span> <span class="va">ee</span>.<span class="va">Reducer</span>.<span class="at">sum</span>()<span class="op">,</span></span>
+<span id="cb11-10"><a href="image-classification.html#cb11-10"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">sum</span>()<span class="op">,</span></span>
 <span id="cb11-11"><a href="image-classification.html#cb11-11"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">30</span><span class="op">*</span><span class="dv">30</span><span class="op">,</span></span>
 <span id="cb11-12"><a href="image-classification.html#cb11-12"></a>  <span class="dt">xProperty</span><span class="op">:</span> <span class="st">&#39;provincien&#39;</span><span class="op">,</span></span>
-<span id="cb11-13"><a href="image-classification.html#cb11-13"></a><span class="op">}</span>).<span class="at">setChartType</span>(<span class="st">&#39;ColumnChart&#39;</span>).<span class="at">setOptions</span>(<span class="op">{</span><span class="dt">colors</span><span class="op">:</span> classcol<span class="op">,</span> <span class="dt">isStacked</span><span class="op">:</span> <span class="st">&#39;percent&#39;</span><span class="op">}</span>)</span>
-<span id="cb11-14"><a href="image-classification.html#cb11-14"></a><span class="at">print</span>(chart)</span></code></pre></div>
+<span id="cb11-13"><a href="image-classification.html#cb11-13"></a>})<span class="op">.</span><span class="fu">setChartType</span>(<span class="st">&#39;ColumnChart&#39;</span>)<span class="op">.</span><span class="fu">setOptions</span>({<span class="dt">colors</span><span class="op">:</span> classcol<span class="op">,</span> <span class="dt">isStacked</span><span class="op">:</span> <span class="st">&#39;percent&#39;</span>})</span>
+<span id="cb11-14"><a href="image-classification.html#cb11-14"></a>print(chart)</span></code></pre></div>
 <p> </p>
 </div>
 </div>
