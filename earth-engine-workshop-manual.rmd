@@ -1,7 +1,7 @@
 ---
 title: "Google Earth Engine workshop"
-author: "[Dr. Philip Kraaijenbrink](https://www.uu.nl/staff/PDAKraaijenbrink)"
-date: "25 September 2018"
+author: "[Philip Kraaijenbrink](https://www.uu.nl/staff/PDAKraaijenbrink)"
+date: "October 6, 2020"
 output:
   bookdown::gitbook:
     highlight: tango
@@ -41,19 +41,27 @@ knitr::opts_chunk$set(echo=T, eval=F)
 knitr::include_graphics('figures/form-logo-no-date.png')
 ```
 
-*This content has been developed originally for an internal workshop at the Department of Physical Geography of Utrecht University.*
+*I developed this content originally in September 2018 for an internal workshop at the Department of Physical Geography of Utrecht University.*
 
 &nbsp;
 
 The exercises of this workshop are meant to give you an idea of the capabilities of Google Earth Engine. Some code uses intermediate to advanced concepts and because of the different level of the workshop participants, all code has been pre-written and ready for copy-paste. More advanced participants are encouraged to dive deeper into the code, add additional code, and find their own solutions, and help others in understanding the analyses and code.
 
-&nbsp;
-
-**You can always search for help on functions in the docs tab on the top left panel, and that there is a concise [online user guide](https://developers.google.com/earth-engine/) with clear examples, accessible via the help dropdown menu in the top right corner.**
 
 ## Earth Engine access {-}
 
 To use Google Earth Engine you need to [sign up](https://earthengine.google.com/new_signup/) for the service first using a Google account.
+
+
+
+## Earth Engine help {-}
+
+There are various ways you can search for help on Earth Engine coding, among others:
+
+- Function help is available through the *docs* tab on the top left panel of the web interface.
+- A concise [user guide](https://developers.google.com/earth-engine/) with clear examples is accessible via the help dropdown menu in the top right corner of the web interface.
+- The developer discussion group is accessible via the help dropdown menu in the top right corner of the web interface. It has many discussions on a plethora of topics and often with example code written by other developers.
+
 
 
 ## Workshop code {-}
@@ -90,7 +98,7 @@ knitr::include_graphics('figures/cc-by-sa-icon.png')
 **Generate a Landsat 8 composite image, perform a landcover classification of the image, and compare class distribution over elevation in the Netherlands.**
 
 
-## Load data
+## Define input data
 
 First you will need to define the datasets to use. In this exercise you will use Landsat 8 surface reflectance data, AHN elevation data, and vector outlines of the Netherlands and dutch provinces. Copy and paste the lines below to a blank script:
 
@@ -306,7 +314,7 @@ print(chart)
 **Use a quality mosaicking approach to get both a low tide and high tide image composite, and classify water using simple thresholding on water index to generate a map showing intertidal area.**
 
 
-## Load data
+## Define input data
 
 First we need to define the datasets that we will use. In this exercise you will use Landsat 8 [top of atmosphere reflectance](http://gsp.humboldt.edu/olm_2015/Courses/GSP_216_Online/lesson4-1/radiometric.html) data. Copy and paste the lines below to a blank script:
 
@@ -597,7 +605,7 @@ lg.classLegend(undefined, ['False','True'], ['lightgray','darkgreen'], 'Signific
 
 **Examine the expected global temperature rise and precipitation changes in the 21st century, aggregate them by country and make a simple global climate change classification. For this you will use yearly ensemble aggregates of the [NEX-GDDP dataset](https://nex.nasa.gov/nex/projects/1356/), which is downscaled CMIP5 climate model data.**
 
-## Load data
+## Define input data
 
 The NEX-GDDP dataset includes downscaled projections for [RCP4.5 and RCP8.5](https://en.wikipedia.org/wiki/Representative_Concentration_Pathways) from 21 Global Circulation Models and scenarios for which daily scenarios were produced and distributed under [CMIP5](https://en.wikipedia.org/wiki/Coupled_model_intercomparison_project). Each of the climate projections includes daily maximum temperature, minimum temperature, and precipitation for the periods from 1950 through 2099. The spatial resolution of the dataset is 0.25 degrees (approximately 27 by 27 km). The original NEX-GDDP data is present in the Earth Engine catalog. For the purpose of this exercise I have pre-aggregated it to yearly data and calculated model ensemble statistics using Earth Engine's computing power.
 
