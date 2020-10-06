@@ -1,0 +1,97 @@
+// Code for chapter 3 "Quality mosaicking" of the google earth engine workshop
+//
+// Use a quality mosaicking approach to get both a low tide and high tide image composite,
+// and classify water using simple thresholding on water index.
+
+// © philip kraaijenbrink
+//
+
+// Settings ======================================
+var cloudcov = 20
+var imageQ   = 8
+
+// get data
+var ls8rfl        = ee.ImageCollection("LANDSAT/LC08/C01/T1_TOA");    
+var westerschelde = ee.Geometry.Point(3.83,51.42)
+
+// filter the landsat 8 collection, rename bands and add time band
+var ls8rfl = ls8rfl
+        .filter(ee.Filter.lte('CLOUD_COVER',cloudcov))
+        .filter(ee.Filter.gte('IMAGE_QUALITY_OLI',imageQ))    
+        .map(function(x){
+          return x.select(['B2','B3','B4','B5','B6','B10','B7','BQA'])
+                  .rename(['blue','green','red','nir','swir1','tir','swir2', 'bqa'])
+});
+
+// apply cloud mask on per-image basis and add Normalized Difference Water Index band
+var util = require('users/philipkraaijenbrink/tools:utilities')    // load philip's util functions
+var lsmasked = ls8rfl.map(function(x){                             // loop over image collection
+  var cldmask = util.getQAFlags(x.select('bqa'),4,4,'clouds')      // get cloud mask from bitwise QA band 
+  var shdmask = util.getQAFlags(x.select('bqa'),7,8,'shadow')      // get cloud shadow mask from bitwise QA band
+  var masked  = x.updateMask(cldmask.eq(0))                        // apply both masks to the image
+                 .updateMask(shdmask.lte(1))
+  var index   = x.normalizedDifference(['green', 'nir'])           // calculate NDWI
+                 .rename('index')
+  var invindex = ee.Image.constant(0).subtract(index)              // change sign of the index
+                 .rename('invindex') 
+  return masked.addBands(index).addBands(invindex)                 // return masked image incl. the two index bands
+})
+
+// for each spatial pixel select the image that has the lowest/highest NDWI value in the entire (filtered) LS8 image collection
+var minwat  = lsmasked.qualityMosaic('invindex')
+var maxwat  = lsmasked.qualityMosaic('index')
+var meanwat = lsmasked.mean()
+
+// add data to map
+Map.centerObject(westerschelde, 11)
+Map.addLayer(minwat, {min:0, max:0.3, bands:['swir1','nir','green']}, 'LT composite', true)
+Map.addLayer(maxwat, {min:0, max:0.3, bands:['swir1','nir','green']}, 'HT composite', false)
+Map.addLayer(meanwat, {min:0, max:0.3, bands:['swir1','nir','green']}, 'Mean composite', false)
+
+// classify water on both images using NDWI threshold
+var lotide = minwat.select('index').gte(0.2)
+var hitide = maxwat.select('index').gte(0.2)
+
+// inspect classifications
+Map.addLayer(lotide, {palette:['darkgreen','lightblue']}, 'Low tide',true)
+Map.addLayer(hitide, {palette:['darkgreen','lightblue']}, 'High tide',true)
+
+// Quite some noise in both classifications because qualitymosaicking picks up the extremes
+// Try to improve by using percentiles instead.
+var indexperc = lsmasked.select(['index']).reduce(ee.Reducer.percentile([16,99], ['lo','hi']))    // get image with low and high percentile NDWI
+var lsmasked  = lsmasked.map(function(x){                            // loop over image collection
+  var selector = x.select('index').subtract(indexperc).abs()         // get absolute difference of the percentiles with the NDWI
+  var invsel   = ee.Image.constant(1).divide(selector)               // invert to let the min diff be the largest value
+  return x.addBands(invsel.rename(['selector_lo','selector_hi']))    // add inverted difference band to the image and name properly
+})
+
+// use the new selectors to perform the quality mosaic and add to map
+var minwat2  = lsmasked.qualityMosaic('selector_lo')
+var maxwat2  = lsmasked.qualityMosaic('selector_hi')
+Map.addLayer(minwat2, {min:0, max:0.3, bands:['swir1','nir','green']}, 'LT composite v2', true)
+Map.addLayer(maxwat2, {min:0, max:0.3, bands:['swir1','nir','green']}, 'HT composite v2', true)
+
+// classify water on both images using NDWI threshold
+var lotide2 = minwat2.select('index').gte(0.2)
+var hitide2 = maxwat2.select('index').gte(0.2)
+
+// inspect classifications
+Map.addLayer(lotide2, {palette:['darkgreen','lightblue']}, 'Low tide 2',true)
+Map.addLayer(hitide2, {palette:['darkgreen','lightblue']}, 'High tide 2',true)
+
+// combine with boolean logic to get intertidal area, and mask everything but intertidal
+var intertidal = lotide2.eq(0).and(hitide2.eq(1))
+var intertidal = intertidal.updateMask(intertidal)
+
+// add to map
+Map.addLayer(intertidal, {palette:['red']}, 'Intertidal area',true, 0.75)
+
+// use masked mean NDWI of the entire collection to get a proxy for the time the intertidal beds are submerged
+var subtime = meanwat.select('index').updateMask(intertidal)
+Map.addLayer(subtime, {min:-0.1, max:0.4, palette: ['red','yellow','blue']}, 'Submerged time', true)
+
+
+
+
+
+

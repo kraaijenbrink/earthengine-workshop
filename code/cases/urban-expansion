@@ -1,0 +1,206 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var builtup = /* color: #0b4a8b */ee.Feature(
+        ee.Geometry({
+          "type": "GeometryCollection",
+          "geometries": [
+            {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    5.094544901091467,
+                    52.091254654108205
+                  ],
+                  [
+                    5.098836435515295,
+                    52.0906745668922
+                  ],
+                  [
+                    5.1039004461354125,
+                    52.091201919218406
+                  ],
+                  [
+                    5.103728784758459,
+                    52.09378585552076
+                  ],
+                  [
+                    5.094802393156897,
+                    52.0942604397985
+                  ]
+                ]
+              ],
+              "evenOdd": true
+            },
+            {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    4.894830080966244,
+                    52.37867496286756
+                  ],
+                  [
+                    4.890366885165463,
+                    52.374273606716784
+                  ],
+                  [
+                    4.8904527158539395,
+                    52.368037601242335
+                  ],
+                  [
+                    4.894143435458432,
+                    52.368037601242335
+                  ],
+                  [
+                    4.894658419589291,
+                    52.3730683969853
+                  ],
+                  [
+                    4.897662493685971,
+                    52.37689351441203
+                  ]
+                ]
+              ],
+              "geodesic": true,
+              "evenOdd": true
+            },
+            {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    4.754257196667481,
+                    52.310580771881696
+                  ],
+                  [
+                    4.766960138562013,
+                    52.31037087040461
+                  ],
+                  [
+                    4.769964212658692,
+                    52.313151984201596
+                  ],
+                  [
+                    4.753313059094239,
+                    52.31304703968362
+                  ]
+                ]
+              ],
+              "geodesic": true,
+              "evenOdd": true
+            }
+          ],
+          "coordinates": []
+        }),
+        {
+          "system:index": "0",
+          "class": 1
+        }),
+    grass = /* color: #ffc82d */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.029374676933003, 52.05981936868325],
+              [5.028344708671284, 52.056230728197384],
+              [5.035726147880268, 52.05169174059494],
+              [5.0482574283978465, 52.04810244718672],
+              [5.051690655936909, 52.056864038643596],
+              [5.0413909733197215, 52.0586583694854],
+              [5.0345245182415965, 52.0589750086229]]]),
+        {
+          "class": 2,
+          "system:index": "0"
+        }),
+    forest = /* color: #00ffff */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.375291210360274, 52.0980051027614],
+              [5.370828014559493, 52.093470360623705],
+              [5.375977855868086, 52.091888365382275],
+              [5.37563453311418, 52.09420860587273],
+              [5.37838111514543, 52.09758328572923]]]),
+        {
+          "class": 3,
+          "system:index": "0"
+        }),
+    water = /* color: #bf04c2 */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.077870676237239, 52.18451709062218],
+              [5.077184030729427, 52.17462257289781],
+              [5.090058634000911, 52.17630690157999],
+              [5.088857004362239, 52.18525382834767]]]),
+        {
+          "class": 4,
+          "system:index": "0"
+        });
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+// get urban expansion map of the randstad, netherlands
+// © Philip Kraaijenbrink
+
+// get code  
+var util = require('users/philipkraaijenbrink/tools:utilities')
+var cp   = require('users/philipkraaijenbrink/tools:colorpals')
+
+// Settings 
+var cloudCov = 30
+var imageQ   = 6
+var randstad = ee.FeatureCollection('users/philipkraaijenbrink/dpg-workshop/randstad')
+                 .filter(ee.Filter.eq('Randstad',1)).union().geometry()
+                 
+// merge landsat collections to single collections
+var ls = util.mergeLandsat([4,5,8], cloudCov, imageQ, 'sur')
+             .filterBounds(randstad)
+
+// apply cloud and cloud shadow mask from quality band
+var ls_mask = ls.map(function(x){                                 // loop over image collection
+  var cldmask = util.getQAFlags(x.select('qa'),5,5,'clouds')            // get cloud mask from bitwise QA band 
+  var shdmask = util.getQAFlags(x.select('qa'),3,3,'shadow')            // get shadow mask from bitwise QA band
+  var masked  = x.updateMask(cldmask.eq(0))                       // apply masks to the image
+                 .updateMask(shdmask.eq(0))
+  return masked
+}).select(['blue','green','red','nir','swir1','tir','swir2'])
+
+// get a single image composite for every year
+var startyear = 1990
+var endyear   = 2017
+var loopsteps = ee.List.sequence(startyear,endyear,1)
+var yrcomps    = ee.ImageCollection.fromImages(loopsteps.map(function(x){
+  var sdate = ee.Date.fromYMD(x,1,1)     // startdate of current loop
+  var edate = ee.Date.fromYMD(x,12,31)   // enddate of current loop
+  var comp = ls_mask.filterDate(sdate,edate)
+                    .median()
+                    .set('system:time_start', sdate)
+                    .clip(randstad)
+  return comp
+}))
+
+// to make sure no nodata is present, fill any remaining small gaps with data of previous year(s)
+// in an imagecollection mosaicking loop
+var yrcmpfil  = ee.ImageCollection.fromImages(loopsteps.map(function(x){
+  var prevcol = yrcomps.filterDate(ee.Date.fromYMD(startyear,1,1), ee.Date.fromYMD(ee.Number(x).subtract(1),12,31))
+  var curimg  = yrcomps.filterDate(ee.Date.fromYMD(x,1,1), ee.Date.fromYMD(x,12,31))
+  return prevcol.merge(curimg).mosaic().set('system:time_start', ee.Date.fromYMD(x,1,1))
+}))
+var yrcmpfil = yrcmpfil.filter(ee.Filter.listContains("system:band_names", "nir"));
+
+// perform supervised classification for each image based on the training areas
+var samples = ee.FeatureCollection([builtup,grass,forest,water])
+var bands   = ['blue','green','red','nir','swir1','swir2', 'tir']
+var classifications = yrcmpfil.map(function(x){
+  var training = x.sampleRegions({collection: samples, properties: ['class'], scale: 30})
+  var trained  = ee.Classifier.minimumDistance('euclidean').train(training, 'class', bands)
+  return x.classify(trained).set('system:time_start', x.get('system:time_start'))
+})
+
+// extract only the urban class and combine years to get single image with the year of expansion
+var urbanyears = classifications.map(function(x){
+  var year = ee.Number.parse(ee.Date(x.get('system:time_start')).format('yyyy')).int()
+  var img  = ee.Image(x).int()
+  return img.eq(1).multiply(year).updateMask(img.eq(1)).int()
+}).min()
+
+var mapyear = '2001'
+Map.centerObject(randstad,10)
+Map.addLayer(yrcmpfil.filterDate(mapyear), {min:0, max:4000, bands:['swir2','nir','red']}, 'Image '+mapyear, 0)
+Map.addLayer(classifications.filterDate(mapyear),
+   {min:1, max:4, palette:['orange','lightgreen','darkgreen','darkblue']}, 'Classification '+mapyear,0)
+   
+var cols = cp.getPalette('JetML',8,true)
+Map.addLayer(urbanyears, {min:startyear,max:endyear, palette:cols},'Urban expansion',1)

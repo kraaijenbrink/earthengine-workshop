@@ -1,0 +1,157 @@
+// Chapter 4 for the DFG earth engine workshop
+// 'Time series detection'
+
+// Calculate zonal NDVI anomalies for 8-day periods in 2018 with respect to
+// the 2000-2017 mean for those periods to determine the severity of the drought.
+//
+// © Philip Kraaijenbrink
+// 20180813
+//
+
+// Load modules
+var util = require('users/philipkraaijenbrink/tools:utilities')    // some utilities
+var lg   = require('users/philipkraaijenbrink/tools:legends')      // code to generate class and colormap legends
+var cp   = require('users/philipkraaijenbrink/tools:colorpals')    // predined color ramps
+
+
+
+// GET DATA =====================================================================
+
+// MODIS surface reflectance 8-day composites
+var aqua  = ee.ImageCollection('MODIS/006/MYD09A1')        // modis aqua data (overpass just after noon)
+var terra = ee.ImageCollection('MODIS/006/MOD09A1')        // modis terra data (overpass mid-morning)
+
+// water mask data
+var wmask = ee.Image('MODIS/MOD44W/MOD44W_005_2000_02_24').select('water_mask')
+
+// get vector data
+var provinces = ee.FeatureCollection('users/philipkraaijenbrink/dpg-workshop/provincies_nl')
+var gemeenten = ee.FeatureCollection('users/philipkraaijenbrink/dpg-workshop/gemeenten_nl')
+
+
+
+// PROCESSING =================================================================
+
+// merge the image collections of modis aqua and terra into one
+var mod = aqua.merge(terra)
+
+// apply cloud mask from MODIS' own quality band, and water mask from the external dataset,
+// select and rename bands, and apply required scale factor
+var modmask = mod.map(function(x){                                                          // loop over modis collection
+  var cldmask = util.getQAFlags(x.select('StateQA'),0,1,'clouds')                              // get boolean cloud and water mask 
+  var masked  = x.updateMask(cldmask.eq(0)).updateMask(wmask.eq(0))                            // apply masks to image
+  var select  = masked.select(['sur_refl_b03','sur_refl_b04','sur_refl_b01','sur_refl_b02',    // select bands and rename them
+                               'sur_refl_b05','sur_refl_b06','sur_refl_b07'])
+                      .rename(['blue','green','red','nir1','nir2','swir1','swir2'])
+  var rescale = select.multiply(0.0001)                                                        // scale back the data
+  return rescale.set('system:time_start', x.get('system:time_start'))                          // return and transfer the image acquisition time property
+})
+
+// generate a list with day-of-year acquisition for the 8-day MODIS composites (limit to the drought period)
+var doys   = ee.List.sequence(97,217,8) 
+
+// calculate an average image for 2000-2017, and add a normalized difference vegetation band
+var meansfull = ee.ImageCollection.fromImages(doys.map(function(x){                                  // loop over the DOY list
+  var meanimg = modmask.filterDate('2000-01-01','2017-12-31')                                           // select date range
+                       .filter(ee.Filter.calendarRange(ee.Number(x), ee.Number(x), 'day_of_year'))      // select images of the current doy only
+                       .mean()                                                                          // get mean 2000-2017 image for this DOY
+  return meanimg.addBands(meanimg.normalizedDifference(['nir1','red']).rename('ndvi_avg'))              // calculate NDVI for this image
+                .set('day_of_year',ee.Number(x))                                                        // set a DOY property
+                .set('system:index',ee.Number(x).format('%.0f'))                                        // set image index to DOY as well
+                .set('system:time_start',ee.Date.parse('y-D', ee.String('2018-')                        // fake time_start property in 2018
+                     .cat(ee.Number(x).format('%.0f'))).format('yyyy-MM-dd'))
+}))
+// do exactly the same, but for 2018 only
+var means2018 = ee.ImageCollection.fromImages(doys.map(function(x){                                  // loop over the DOY list
+  var meanimg = modmask.filterDate('2018-01-01','2018-12-31')                                           // select date range
+                       .filter(ee.Filter.calendarRange(ee.Number(x), ee.Number(x), 'day_of_year'))      // select images of the current doy only
+                       .mean()                                                                          // get mean 2000-2017 image for this DOY
+  return meanimg.addBands(meanimg.normalizedDifference(['nir1','red']).rename('ndvi_2018'))             // calculate NDVI for this image
+                .set('day_of_year',ee.Number(x))                                                        // set a DOY property
+                .set('system:index',ee.Number(x).format('%.0f'))                                        // set image index to DOY as well
+                .set('system:time_start',ee.Date.parse('y-D', ee.String('2018-')                        // set time_start property
+                     .cat(ee.Number(x).format('%.0f'))).format('yyyy-MM-dd'))
+}))
+
+// combine the NDVI images of the two collections into multiband images based on system:index property
+var ndvi = meansfull.select('ndvi_avg').combine(means2018.select('ndvi_2018'))
+
+// add a band with the difference between the two, i.e. the anomaly per DOY
+var ndvi = ndvi.map(function(x){
+  var diff = x.select('ndvi_2018').subtract(x.select('ndvi_avg')).rename('ndvi_diff')
+  return x.addBands(diff)
+})
+
+
+// MAPPING ==========================================================================================
+
+// the DOY to display
+var displaydoy = 217
+
+// filter the data to display
+var mapdat1 = meansfull.filter(ee.Filter.eq('day_of_year',displaydoy))
+var mapdat2 = means2018.filter(ee.Filter.eq('day_of_year',displaydoy))
+var mapdat3 = ndvi.filter(ee.Filter.eq('day_of_year',displaydoy)).select('ndvi_diff')
+
+// add data to the map
+Map.centerObject(provinces)
+var anomalypal = cp.getPalette('RdBu',5)
+Map.addLayer(mapdat1, {min: 0.0, max: 0.20, bands:['red','green','blue']}, 'MODIS 2000-2017 avg',false)
+Map.addLayer(mapdat2, {min: 0.0, max: 0.20, bands:['red','green','blue']}, 'MODIS 2018',false)
+Map.addLayer(mapdat3, {min: -0.3, max: 0.3, palette: anomalypal}, 'NDVI anomaly',true)
+
+
+// get zonal averages for provinces and municipalities
+var provmeans = ndvi.filter(ee.Filter.eq('day_of_year',displaydoy)).select('ndvi_diff').first()
+                    .reduceRegions(provinces, ee.Reducer.mean(), 5000)
+var gemmeans = ndvi.filter(ee.Filter.eq('day_of_year',displaydoy)).select('ndvi_diff').first()
+                    .reduceRegions(gemeenten, ee.Reducer.mean(), 5000)
+                    
+// covert the vector data into mappable images
+var provimg  = ee.Image().float().paint(provmeans,'mean')
+var gemimg   = ee.Image().float().paint(gemmeans,'mean')                     
+var vectbor  = ee.Image().byte().paint(provinces,0,2).paint(gemeenten,0,1)  // polygon outlines of both provinces and municipalities
+
+// add to zonal images to map
+Map.addLayer(provimg, {min:-0.2, max:0.2, palette:anomalypal},'NDVI anomaly provinces', true, 1)
+Map.addLayer(gemimg, {min:-0.2, max:0.2, palette: anomalypal},'NDVI anomaly municipality', true, 1)
+Map.addLayer(vectbor, {},'Provinces and municipalities', true, 1)
+
+
+
+
+// CHARTING ===============================================================
+
+var panel = ui.Panel();                     // Create a panel on left
+panel.style().set('width', '20%');
+var title = ui.Panel([                      // Create title on the panel
+  ui.Label({
+    value: 'NDVI inspector',
+    style: {fontSize: '14px', fontWeight: 'bold'}
+  }),
+  ui.Label({
+    value: 'Click on map to chart NDVI series',
+    style: {fontSize: '12px', fontWeight: 'normal'}
+  })
+]);
+panel.add(title);
+var lon = ui.Label();                       // Create panels to hold lon/lat values.
+var lat = ui.Label();
+panel.add(ui.Panel([lon, lat], ui.Panel.Layout.flow('horizontal')));
+
+// Add the panel to the ui.root.
+ui.root.insert(0, panel);
+
+// Callback when the map is clicked
+Map.onClick(function(coords) {
+  lon.setValue('lon: ' + coords.lon.toFixed(3)),
+  lat.setValue('lat: ' + coords.lat.toFixed(3));
+  var point = ee.Geometry.Point(coords.lon, coords.lat);
+  
+    // Create an NDVI chart.
+  var ndviChart = ui.Chart.image.series(ndvi.select(['ndvi_avg','ndvi_2018']), point, ee.Reducer.mean(), 2500, 'day_of_year');
+  ndviChart.setOptions({title: 'NDVI Over Time', vAxis: {title: 'NDVI'},  hAxis: {title: 'Day of year'}});
+  panel.widgets().set(2, ndviChart);
+})
+
+Map.style().set('cursor', 'crosshair');

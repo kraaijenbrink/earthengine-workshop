@@ -1,0 +1,63 @@
+// Coastline change over time by multitemporal water classification and focal filtering
+// © philip kraaijenbrink
+
+// Settings ======================================
+var cloudcov = 70
+var imageQ   = 5
+var mapyear  = 2011
+var extent   = ee.Geometry.Rectangle([4.12794,52.02799,4.25137,52.08193])
+
+// get collection with landsat
+var util = require('users/philipkraaijenbrink/tools:utilities')
+var ls   = util.mergeLandsat([4,5,8], cloudcov, imageQ, 'toa')
+
+// apply cloud mask from quality band
+var ls_mask = ls.map(function(x){                                  // loop over image collection
+  var cldmask = util.getQAFlags(x.select('qa'),4,4,'clouds')       // get cloud mask from bitwise QA band 
+  var masked  = x.updateMask(cldmask.eq(0))                        // apply masks to the image
+  return masked
+})
+
+// get a single image composite for every year
+var startyear = 2010
+var endyear   = 2017
+var loopsteps = ee.List.sequence(startyear,endyear,1)
+var yrcomps    = ee.ImageCollection.fromImages(loopsteps.map(function(x){
+  var sdate = ee.Date.fromYMD(x,1,1)     // startdate of current loop
+  var edate = ee.Date.fromYMD(x,12,31)   // enddate of current loop
+  var comp = ls_mask.filterDate(sdate,edate)
+                    .median()
+                    .set('system:time_start', sdate)
+  return comp;
+}))
+
+// filter years that may have no images available
+var yrcomps = yrcomps.filter(ee.Filter.listContains("system:band_names", "nir"));
+
+// classify water on composites and extract smoothed borderline
+var watermap = yrcomps.map(function(x){
+  var year = ee.Number.parse(ee.Date(x.get('system:time_start')).format('yyyy')).int()
+  var water =  x.normalizedDifference(['red','nir']).gte(0.15).rename('water');
+  var water_smooth = water.reduceNeighborhood({reducer: ee.Reducer.mode(),kernel: ee.Kernel.square(60,'meters')})
+                          .rename('water_smooth');
+  var waterline = water_smooth.reduceNeighborhood({reducer: ee.Reducer.max(),kernel: ee.Kernel.square(30,'meters')})
+                              .subtract(water_smooth).rename('waterline')
+
+  var yearline = waterline.multiply(year).updateMask(waterline).int()
+  return water.addBands(water_smooth).addBands(yearline) 
+              .set('system:time_start', x.get('system:time_start'))
+})
+
+// add multiple years of coastlines together
+var yrlims = [2010,2018]
+var yearlines = watermap.select('waterline')
+                        .filterDate(ee.Date.fromYMD(yrlims[0],1,1),ee.Date.fromYMD(yrlims[1],12,31))
+                        .mosaic()
+// make map output
+var bandcomb = ['swir2','nir','red']
+Map.centerObject(extent,13)
+Map.addLayer(yrcomps.filterDate(ee.Date.fromYMD(mapyear,1,1)),
+             {min:0, max: 0.35, bands:bandcomb}, 'landsat composite', true)
+// Map.addLayer(watermap.filterDate(ee.Date.fromYMD(mapyear,1,1)).select('waterline'),
+//             {min:0, max: 2018, palette:['magenta']}, 'water map', 1)
+Map.addLayer(yearlines, {min:yrlims[0], max: yrlims[1], palette:['red','yellow','green','blue','magenta']}, 'water map', true)

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Regression | Google Earth Engine workshop</title>
+  <meta name="description" content="3 Regression | Google Earth Engine workshop" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Regression | Google Earth Engine workshop" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Regression | Google Earth Engine workshop" />
+  
+  
+  
+
+<meta name="author" content="Dr. Philip Kraaijenbrink" />
+
+
+<meta name="date" content="2018-09-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="quality-mosaicking.html"/>
+<link rel="next" href="climate-data-analysis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="image-classification.html"><a href="image-classification.html"><i class="fa fa-check"></i><b>1</b> Image classification</a><ul>
+<li class="chapter" data-level="1.1" data-path="image-classification.html"><a href="image-classification.html#load-data"><i class="fa fa-check"></i><b>1.1</b> Load data</a></li>
+<li class="chapter" data-level="1.2" data-path="image-classification.html"><a href="image-classification.html#obtain-training-data"><i class="fa fa-check"></i><b>1.2</b> Obtain training data</a></li>
+<li class="chapter" data-level="1.3" data-path="image-classification.html"><a href="image-classification.html#classify-image"><i class="fa fa-check"></i><b>1.3</b> Classify image</a></li>
+<li class="chapter" data-level="1.4" data-path="image-classification.html"><a href="image-classification.html#visualize-using-charts"><i class="fa fa-check"></i><b>1.4</b> Visualize using charts</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html"><i class="fa fa-check"></i><b>2</b> Quality mosaicking</a><ul>
+<li class="chapter" data-level="2.1" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#load-data-1"><i class="fa fa-check"></i><b>2.1</b> Load data</a></li>
+<li class="chapter" data-level="2.2" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#mask-clouds-and-calculate-index"><i class="fa fa-check"></i><b>2.2</b> Mask clouds and calculate index</a></li>
+<li class="chapter" data-level="2.3" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#quality-mosaic-composite"><i class="fa fa-check"></i><b>2.3</b> Quality mosaic composite</a></li>
+<li class="chapter" data-level="2.4" data-path="quality-mosaicking.html"><a href="quality-mosaicking.html#classify-water"><i class="fa fa-check"></i><b>2.4</b> Classify water</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="regression.html"><a href="regression.html#settings-and-data"><i class="fa fa-check"></i><b>3.1</b> Settings and data</a></li>
+<li class="chapter" data-level="3.2" data-path="regression.html"><a href="regression.html#derive-annual-composites"><i class="fa fa-check"></i><b>3.2</b> Derive annual composites</a></li>
+<li class="chapter" data-level="3.3" data-path="regression.html"><a href="regression.html#calculate-temporal-trend"><i class="fa fa-check"></i><b>3.3</b> Calculate temporal trend</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Climate data analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#load-data-2"><i class="fa fa-check"></i><b>4.1</b> Load data</a></li>
+<li class="chapter" data-level="4.2" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#estimate-mean-temperature"><i class="fa fa-check"></i><b>4.2</b> Estimate mean temperature</a></li>
+<li class="chapter" data-level="4.3" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#determine-relative-change"><i class="fa fa-check"></i><b>4.3</b> Determine relative change</a></li>
+<li class="chapter" data-level="4.4" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#make-charts"><i class="fa fa-check"></i><b>4.4</b> Make charts</a></li>
+<li class="chapter" data-level="4.5" data-path="climate-data-analysis.html"><a href="climate-data-analysis.html#end-of-century-climatology"><i class="fa fa-check"></i><b>4.5</b> End of century climatology</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="additional-cases.html"><a href="additional-cases.html"><i class="fa fa-check"></i>Additional cases</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Google Earth Engine workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression" class="section level1">
+<h1><span class="header-section-number">3</span> Regression</h1>
+<p><strong>Perform a regression analysis on MODIS NDVI to observe the spatial distribution of greening and drying over the last two decades. The NDVI stands for the <a href="https://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php">Normalized Difference Vegetation Index</a> (-1: bare, to 1: highly vegetated), which is a measure for how much and how healthy vegetation is present in a pixel</strong></p>
+<div id="settings-and-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Settings and data</h2>
+<p>Set some time settings and load the required data. The filter options allow you to filter on specific years and months as specified by the user in the time settings. You can play around with the time settings. For example, alter these settings such that you acquire NDVI trends for the summer period for the years 2010 to 2015.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb21-1"><a href="regression.html#cb21-1"></a><span class="co">// time settings</span></span>
+<span id="cb21-2"><a href="regression.html#cb21-2"></a><span class="kw">var</span> yearrange  <span class="op">=</span> [<span class="dv">2000</span><span class="op">,</span><span class="dv">2017</span>]<span class="op">;</span>   <span class="co">// limit calculations to specific range of years</span></span>
+<span id="cb21-3"><a href="regression.html#cb21-3"></a><span class="kw">var</span> monthrange <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span><span class="dv">12</span>]<span class="op">;</span>        <span class="co">// limit calculations to specific range of months</span></span>
+<span id="cb21-4"><a href="regression.html#cb21-4"></a> </span>
+<span id="cb21-5"><a href="regression.html#cb21-5"></a><span class="co">// load MODIS NDVI collection</span></span>
+<span id="cb21-6"><a href="regression.html#cb21-6"></a><span class="kw">var</span> ndvi <span class="op">=</span> <span class="va">ee</span>.<span class="at">ImageCollection</span>(<span class="st">&quot;MODIS/006/MOD13A1&quot;</span>)<span class="op">;</span></span>
+<span id="cb21-7"><a href="regression.html#cb21-7"></a> </span>
+<span id="cb21-8"><a href="regression.html#cb21-8"></a><span class="co">// Filter collection</span></span>
+<span id="cb21-9"><a href="regression.html#cb21-9"></a>ndvi <span class="op">=</span> <span class="va">ndvi</span>.<span class="at">filterDate</span>(yearrange[<span class="dv">0</span>]<span class="op">+</span><span class="st">&#39;-01-01&#39;</span><span class="op">,</span>yearrange[<span class="dv">1</span>]<span class="op">+</span><span class="st">&#39;-12-31&#39;</span>)</span>
+<span id="cb21-10"><a href="regression.html#cb21-10"></a>           .<span class="at">filter</span>(<span class="va">ee</span>.<span class="va">Filter</span>.<span class="at">calendarRange</span>(monthrange[<span class="dv">0</span>]<span class="op">,</span>monthrange[<span class="dv">1</span>]<span class="op">,</span> <span class="st">&#39;month&#39;</span>))</span>
+<span id="cb21-11"><a href="regression.html#cb21-11"></a>           .<span class="at">select</span>(<span class="st">&#39;NDVI&#39;</span>) </span></code></pre></div>
+<p> </p>
+<p>A scaling factor is applied to the original data in the catalog (0.0001). To get the correct NDVI value, this factor first must be applied to each image in the filtered collection with the code below. Type “MODIS/006/MOD13A1” in the search bar, select the top result and look at the band descriptions of this dataset where the scaling factors are defined.</p>
+<p>Most image properties are lost when you apply reducers or arithmetic functions to images. To retain the time information that is stored with each image the system:time_start property is transferred using the set and get functions.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb22-1"><a href="regression.html#cb22-1"></a><span class="co">// scale appropriately</span></span>
+<span id="cb22-2"><a href="regression.html#cb22-2"></a>ndvi <span class="op">=</span> <span class="va">ndvi</span>.<span class="at">map</span>(<span class="kw">function</span>(x)<span class="op">{</span></span>
+<span id="cb22-3"><a href="regression.html#cb22-3"></a>  <span class="cf">return</span> <span class="va">x</span>.<span class="at">multiply</span>(<span class="fl">0.0001</span>).<span class="at">set</span>(<span class="st">&#39;system:time_start&#39;</span><span class="op">,</span> <span class="va">x</span>.<span class="at">get</span>(<span class="st">&#39;system:time_start&#39;</span>))</span>
+<span id="cb22-4"><a href="regression.html#cb22-4"></a>  <span class="op">}</span>)<span class="op">;</span></span></code></pre></div>
+</div>
+<div id="derive-annual-composites" class="section level2">
+<h2><span class="header-section-number">3.2</span> Derive annual composites</h2>
+<p>Annual mean NDVI images can be produced with the following code. It loops over a list of years, applies a time filter to the image collection in each loop, calculates a mean composite, and adds the current year as a constant image band.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb23-1"><a href="regression.html#cb23-1"></a><span class="co">// Perform temporal reduction to get yearly mean NDVI images</span></span>
+<span id="cb23-2"><a href="regression.html#cb23-2"></a><span class="kw">var</span> years   <span class="op">=</span> <span class="va">ee</span>.<span class="va">List</span>.<span class="at">sequence</span>(yearrange[<span class="dv">0</span>]<span class="op">,</span>yearrange[<span class="dv">1</span>])<span class="op">;</span></span>
+<span id="cb23-3"><a href="regression.html#cb23-3"></a><span class="kw">var</span> yearmeans <span class="op">=</span> <span class="va">ee</span>.<span class="va">ImageCollection</span>.<span class="at">fromImages</span>(</span>
+<span id="cb23-4"><a href="regression.html#cb23-4"></a>    <span class="va">years</span>.<span class="at">map</span>(<span class="kw">function</span> (yr)<span class="op">{</span></span>
+<span id="cb23-5"><a href="regression.html#cb23-5"></a>      <span class="cf">return</span> <span class="va">ndvi</span>.<span class="at">filterDate</span>(<span class="va">ee</span>.<span class="va">Date</span>.<span class="at">fromYMD</span>(yr<span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span>)<span class="op">,</span><span class="va">ee</span>.<span class="va">Date</span>.<span class="at">fromYMD</span>(yr<span class="op">,</span><span class="dv">12</span><span class="op">,</span><span class="dv">31</span>))</span>
+<span id="cb23-6"><a href="regression.html#cb23-6"></a>               .<span class="at">mean</span>()</span>
+<span id="cb23-7"><a href="regression.html#cb23-7"></a>                 .<span class="at">set</span>(<span class="st">&#39;year&#39;</span><span class="op">,</span>yr)</span>
+<span id="cb23-8"><a href="regression.html#cb23-8"></a>               .<span class="at">set</span>(<span class="st">&#39;monthrange&#39;</span><span class="op">,</span>monthrange[<span class="dv">0</span>]<span class="op">+</span><span class="st">&#39;-&#39;</span><span class="op">+</span>monthrange[<span class="dv">1</span>])</span>
+<span id="cb23-9"><a href="regression.html#cb23-9"></a>               .<span class="at">set</span>(<span class="st">&#39;system:time_start&#39;</span><span class="op">,</span> <span class="va">ee</span>.<span class="va">Date</span>.<span class="at">fromYMD</span>(yr<span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span>))</span>
+<span id="cb23-10"><a href="regression.html#cb23-10"></a>               <span class="co">// add image band with the year to use in the regression</span></span>
+<span id="cb23-11"><a href="regression.html#cb23-11"></a>               .<span class="at">addBands</span>(<span class="va">ee</span>.<span class="va">Image</span>.<span class="at">constant</span>(yr).<span class="at">rename</span>(<span class="st">&#39;yr&#39;</span>).<span class="at">float</span>())</span>
+<span id="cb23-12"><a href="regression.html#cb23-12"></a>  <span class="op">}</span>)</span>
+<span id="cb23-13"><a href="regression.html#cb23-13"></a>)</span>
+<span id="cb23-14"><a href="regression.html#cb23-14"></a><span class="kw">var</span> grandmean <span class="op">=</span> <span class="va">yearmeans</span>.<span class="at">select</span>(<span class="st">&#39;NDVI&#39;</span>).<span class="at">mean</span>()</span></code></pre></div>
+<p> </p>
+</div>
+<div id="calculate-temporal-trend" class="section level2">
+<h2><span class="header-section-number">3.3</span> Calculate temporal trend</h2>
+<p>Using the function <code>ee.Reducer.linearFit()</code> a linear regression between two image bands can be performed, in this case the years and the NDVI. This provides us with the slope and offset of the regression, or the a and b coefficients in the equation for an univariate linear regression: <span class="math inline">\(y=ax+b\)</span></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb24-1"><a href="regression.html#cb24-1"></a><span class="co">// compute a linear fit between years and NDVI</span></span>
+<span id="cb24-2"><a href="regression.html#cb24-2"></a><span class="kw">var</span> fit <span class="op">=</span> <span class="va">yearmeans</span>.<span class="at">select</span>(<span class="st">&quot;yr&quot;</span><span class="op">,</span><span class="st">&quot;NDVI&quot;</span>).<span class="at">reduce</span>(<span class="va">ee</span>.<span class="va">Reducer</span>.<span class="at">linearFit</span>())<span class="op">;</span></span></code></pre></div>
+<p> </p>
+<p>In order to obtain probability values to determine the significance of the relation between years and NDVI, calculate the Pearson correlation using the following code:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb25-1"><a href="regression.html#cb25-1"></a><span class="co">// compute Pearson&#39;s correlation coefficient and probability value</span></span>
+<span id="cb25-2"><a href="regression.html#cb25-2"></a><span class="kw">var</span> cor <span class="op">=</span> <span class="va">yearmeans</span>.<span class="at">select</span>(<span class="st">&quot;yr&quot;</span><span class="op">,</span><span class="st">&quot;NDVI&quot;</span>).<span class="at">reduce</span>(<span class="va">ee</span>.<span class="va">Reducer</span>.<span class="at">pearsonsCorrelation</span>())<span class="op">;</span></span></code></pre></div>
+<p> </p>
+<p>Use my predifined <em>R</em>, <em>Matlab</em>, <em>Matplotlib</em> or <em>Colorbrewer</em> color palettes and legend functions to create a pretty map that shows you where greening or drying has occurred (NDVI trend map) and whether this trend is significant (p-value map).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb26-1"><a href="regression.html#cb26-1"></a><span class="co">// load philip&#39;s color palette and legend tools</span></span>
+<span id="cb26-2"><a href="regression.html#cb26-2"></a><span class="co">// run cp.allPalettes() to show all color palettes that are available.</span></span>
+<span id="cb26-3"><a href="regression.html#cb26-3"></a><span class="kw">var</span> cp <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;users/philipkraaijenbrink/tools:colorpals&#39;</span>) </span>
+<span id="cb26-4"><a href="regression.html#cb26-4"></a><span class="kw">var</span> lg <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;users/philipkraaijenbrink/tools:legends&#39;</span>)</span></code></pre></div>
+<p> </p>
+<p>If you would like to use another color palette, run <code>cp.allPalettes()</code> to print all available color palettes to the console</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb27-1"><a href="regression.html#cb27-1"></a><span class="co">// map the layers</span></span>
+<span id="cb27-2"><a href="regression.html#cb27-2"></a><span class="va">Map</span>.<span class="at">centerObject</span>(<span class="va">ee</span>.<span class="va">Geometry</span>.<span class="at">Point</span>(<span class="dv">95</span><span class="op">,</span><span class="dv">30</span>)<span class="op">,</span><span class="dv">5</span>)</span>
+<span id="cb27-3"><a href="regression.html#cb27-3"></a><span class="va">Map</span>.<span class="at">addLayer</span>(grandmean<span class="op">,</span></span>
+<span id="cb27-4"><a href="regression.html#cb27-4"></a>             <span class="op">{</span><span class="dt">min</span><span class="op">:</span><span class="fl">0.0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="fl">0.7</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span><span class="va">cp</span>.<span class="at">getPalette</span>(<span class="st">&quot;YlGn&quot;</span><span class="op">,</span><span class="dv">9</span>)<span class="op">},</span></span>
+<span id="cb27-5"><a href="regression.html#cb27-5"></a>             <span class="st">&#39;NDVI&#39;</span><span class="op">,</span><span class="dv">1</span>)</span>
+<span id="cb27-6"><a href="regression.html#cb27-6"></a><span class="va">Map</span>.<span class="at">addLayer</span>(fit<span class="op">,</span></span>
+<span id="cb27-7"><a href="regression.html#cb27-7"></a>             <span class="op">{</span><span class="dt">min</span><span class="op">:</span> <span class="fl">-0.006</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.006</span><span class="op">,</span> <span class="dt">bands</span><span class="op">:</span><span class="st">&#39;scale&#39;</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> <span class="va">cp</span>.<span class="at">getPalette</span>(<span class="st">&quot;PiYG&quot;</span><span class="op">,</span><span class="dv">9</span>)<span class="op">},</span></span>
+<span id="cb27-8"><a href="regression.html#cb27-8"></a>             <span class="st">&#39;NDVI trends&#39;</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb27-9"><a href="regression.html#cb27-9"></a><span class="va">Map</span>.<span class="at">addLayer</span>(cor<span class="op">,</span></span>
+<span id="cb27-10"><a href="regression.html#cb27-10"></a>             <span class="op">{</span><span class="dt">min</span><span class="op">:-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span><span class="dv">1</span><span class="op">,</span> <span class="dt">bands</span><span class="op">:</span><span class="st">&#39;correlation&#39;</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> <span class="va">cp</span>.<span class="at">getPalette</span>(<span class="st">&quot;RdBu&quot;</span><span class="op">,</span><span class="dv">9</span>)<span class="op">},</span></span>
+<span id="cb27-11"><a href="regression.html#cb27-11"></a>             <span class="st">&#39;Correlation&#39;</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb27-12"><a href="regression.html#cb27-12"></a><span class="va">Map</span>.<span class="at">addLayer</span>(<span class="va">cor</span>.<span class="at">lte</span>(<span class="fl">0.05</span>)<span class="op">,</span></span>
+<span id="cb27-13"><a href="regression.html#cb27-13"></a>             <span class="op">{</span><span class="dt">min</span><span class="op">:</span> <span class="st">&#39;0&#39;</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="st">&#39;1&#39;</span><span class="op">,</span> <span class="dt">bands</span><span class="op">:</span> <span class="st">&#39;p-value&#39;</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> [<span class="st">&#39;lightgray&#39;</span><span class="op">,</span><span class="st">&#39;darkgreen&#39;</span>]<span class="op">},</span></span>
+<span id="cb27-14"><a href="regression.html#cb27-14"></a>             <span class="st">&#39;p&lt;=0.05&#39;</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb27-15"><a href="regression.html#cb27-15"></a> </span>
+<span id="cb27-16"><a href="regression.html#cb27-16"></a><span class="co">// create legends</span></span>
+<span id="cb27-17"><a href="regression.html#cb27-17"></a><span class="va">lg</span>.<span class="at">rampLegend</span>(<span class="va">cp</span>.<span class="at">getPalette</span>(<span class="st">&quot;YlGn&quot;</span><span class="op">,</span><span class="dv">9</span>)<span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="fl">0.7</span><span class="op">,</span> <span class="st">&#39;NDVI (-)&#39;</span>)</span>
+<span id="cb27-18"><a href="regression.html#cb27-18"></a><span class="va">lg</span>.<span class="at">rampLegend</span>(<span class="va">cp</span>.<span class="at">getPalette</span>(<span class="st">&quot;PiYG&quot;</span><span class="op">,</span><span class="dv">9</span>)<span class="op">,</span> <span class="fl">-6e-3</span><span class="op">,</span><span class="fl">6e-3</span><span class="op">,</span> <span class="st">&#39;NDVI trend (y-1)&#39;</span>)</span>
+<span id="cb27-19"><a href="regression.html#cb27-19"></a><span class="va">lg</span>.<span class="at">rampLegend</span>(<span class="va">cp</span>.<span class="at">getPalette</span>(<span class="st">&quot;RdBu&quot;</span><span class="op">,</span><span class="dv">9</span>)<span class="op">,-</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Correlation (-)&#39;</span>)</span>
+<span id="cb27-20"><a href="regression.html#cb27-20"></a><span class="va">lg</span>.<span class="at">classLegend</span>(<span class="kw">undefined</span><span class="op">,</span> [<span class="st">&#39;False&#39;</span><span class="op">,</span><span class="st">&#39;True&#39;</span>]<span class="op">,</span> [<span class="st">&#39;lightgray&#39;</span><span class="op">,</span><span class="st">&#39;darkgreen&#39;</span>]<span class="op">,</span> <span class="st">&#39;Significance&#39;</span>)</span></code></pre></div>
+<p> </p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="quality-mosaicking.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="climate-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true,
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

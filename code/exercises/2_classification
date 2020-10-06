@@ -1,0 +1,269 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var grass = /* color: #d63000 */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.052013254650092, 52.03707074217102],
+              [5.0557898049430605, 52.041400040407474],
+              [5.04806504298017, 52.04393406921302],
+              [5.042915201671576, 52.046045650139654],
+              [5.036907053478217, 52.04762927036318],
+              [5.035877085216498, 52.04667910496324],
+              [5.039996958263373, 52.04330057548039],
+              [5.043086863048529, 52.03939383237987],
+              [5.046520090587592, 52.036120352289636],
+              [5.049953318126654, 52.031896152811264]]]),
+        {
+          "system:index": "0",
+          "class": 0
+        }),
+    forest = /* color: #98ff00 */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.363500532727585, 52.106043741968875],
+              [5.364015516858444, 52.10335507468161],
+              [5.368135389905319, 52.10240609458421],
+              [5.368049559216843, 52.10140437146383],
+              [5.37062447987114, 52.100191729163264],
+              [5.373199400525436, 52.100244453427116],
+              [5.374572691541061, 52.09934813246566],
+              [5.37860673389946, 52.10140437146383],
+              [5.377233442883835, 52.10219520737592],
+              [5.377662596326218, 52.103407795206074],
+              [5.375774321179733, 52.10451491182335],
+              [5.374486860852585, 52.10235337287562],
+              [5.371911940198288, 52.10172070751139],
+              [5.370881971936569, 52.10256425933604],
+              [5.369766172986374, 52.10319691273432],
+              [5.368736204724655, 52.10393499702298],
+              [5.367534575085983, 52.10498938196021],
+              [5.366762098889694, 52.10599102456051]]]),
+        {
+          "system:index": "0",
+          "class": 1
+        }),
+    water = /* color: #0b4a8b */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.077617863864361, 52.183836788887646],
+              [5.078047017306744, 52.17586333147702],
+              [5.089205006808697, 52.17686338142896],
+              [5.089119176120221, 52.18425778980895]]]),
+        {
+          "system:index": "0",
+          "class": 2
+        }),
+    built_up = /* color: #ffc82d */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[5.09324786019522, 52.09363314652631],
+              [5.094149082424224, 52.08884745657093],
+              [5.095221966030181, 52.088359630144815],
+              [5.097432106258452, 52.08905840688725],
+              [5.09749647927481, 52.0898890140634],
+              [5.09723898720938, 52.090956914856456],
+              [5.097904175045073, 52.09110193644982],
+              [5.100393265010894, 52.091352427182585],
+              [5.101015537502349, 52.09004722320107],
+              [5.1038908655663136, 52.09086462814258],
+              [5.102946727993071, 52.09256530978756],
+              [5.099942653896392, 52.09272350943568],
+              [5.100285976650298, 52.09149744749038],
+              [5.097131698848784, 52.091141487711624],
+              [5.0952434237023, 52.09187977149699],
+              [5.095458000423491, 52.09322447128728]]]),
+        {
+          "system:index": "0",
+          "class": 3
+        }),
+    bare = /* color: #00ffff */ee.Feature(
+        ee.Geometry({
+          "type": "GeometryCollection",
+          "geometries": [
+            {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    5.7891372409281985,
+                    52.13805826968121
+                  ],
+                  [
+                    5.7926562991557375,
+                    52.138163628601546
+                  ],
+                  [
+                    5.7946304049906985,
+                    52.13716270879634
+                  ],
+                  [
+                    5.797548648398902,
+                    52.137742191424906
+                  ],
+                  [
+                    5.7967761722026125,
+                    52.14027075467411
+                  ],
+                  [
+                    5.801411029380347,
+                    52.1411662530696
+                  ],
+                  [
+                    5.800295230430152,
+                    52.14264115235356
+                  ],
+                  [
+                    5.7940295901713625,
+                    52.14253580402452
+                  ],
+                  [
+                    5.78784978060105,
+                    52.138690419465064
+                  ]
+                ]
+              ],
+              "evenOdd": true
+            },
+            {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    3.9797912182930304,
+                    51.93395414919802
+                  ],
+                  [
+                    3.9850268902901007,
+                    51.92522140422223
+                  ],
+                  [
+                    3.9876018109443976,
+                    51.92527433506761
+                  ],
+                  [
+                    3.9981589856270148,
+                    51.93416583100991
+                  ]
+                ]
+              ],
+              "geodesic": true,
+              "evenOdd": true
+            }
+          ],
+          "coordinates": []
+        }),
+        {
+          "system:index": "0",
+          "class": 4
+        }),
+    crop = /* color: #d63000 */ee.Feature(
+        ee.Geometry.Polygon(
+            [[[4.601550243836527, 52.07244524586593],
+              [4.601636074525004, 52.06869933554706],
+              [4.606270931702738, 52.06854105072644],
+              [4.606270931702738, 52.072234217018405]]]),
+        {
+          "class": 5,
+          "system:index": "0"
+        });
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+// Example code for exercise 2 of the DPG earth engine workshop
+// © philip kraaijenbrink
+
+// get data 
+var landsat  = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+
+// get only scenes that overlap with NL, have less than 10% cloud cover, and are in the period 2015-2017
+var nl      = ee.FeatureCollection('users/philipkraaijenbrink/dpg-workshop/rijksgrens_nl')
+var landsat = landsat.filterBounds(nl)
+                     .filterDate('2015-01-01','2017-12-31')
+                     .filter(ee.Filter.lte('CLOUD_COVER', 10))
+
+// select subsat of image bands and rename them for easier reference
+var landsat = landsat.select(['B2','B3','B4','B5','B6','B7','B10'])                                         // select only these bands
+                   .map(function(x){return x.rename(['blue','green','red','nir','swir1','swir2','tir'])})   // loop over images in collection and rename the bands
+
+// for every pixel, get the median pixel value of all images in the collection
+// for a quick way to filter clouds and possible artefacts
+var satimg = landsat.median()
+
+// clip the result to the outline of NL
+var satimg = satimg.clip(nl)
+
+// combine the sample regions you've create into a single collection
+var sampleregs  = ee.FeatureCollection([grass,forest,water,built_up,bare,crop])
+
+// selection of bands to use for classification algorithm
+var bands    = ['green','red','nir','swir1','swir2']
+
+// sample pixels from the image using the regions, train the classifier with the samples and apply classifier to the image
+var training = satimg.sampleRegions({collection: sampleregs, properties: ['class'], scale: 30})
+var mdmodel  = ee.Classifier.minimumDistance('euclidean')
+var trained  = mdmodel.train(training, 'class', bands)
+var classimg = satimg.classify(trained)
+
+
+// set the display colors and names for the classes
+var classlab = ['Grass','Forest','Water','Built-up','Bare','Cropland']
+var classval = [0,1,2,3,4,5]
+var classcol = ['YellowGreen','184930','LightSkyBlue','#cacaca','Moccasin','OliveDrab']      // use hex RGB or html5 color names
+
+// add layers to the map 
+Map.addLayer(satimg, {min:0, max:4000, bands:['swir1','nir','red']}, 'Composite',false)
+Map.addLayer(classimg, {min:0, max:5, palette: classcol}, 'Classification',true)
+
+// add class legend to the map
+var lg = require('users/philipkraaijenbrink/tools:legends')
+lg.classLegend(classval, classlab, classcol)
+
+// chart that shows class area distribution
+var chart = ui.Chart.image.byClass({
+  image: ee.Image.pixelArea().multiply(1e-6)        // pixel area in km2
+            .addBands(classimg.rename('classification')),
+  classBand: 'classification',                     
+  region: nl,
+  reducer: ee.Reducer.sum(),
+  scale: 30*30,
+  classLabels: classlab,
+})
+chart.setOptions({title:'Area per class', hAxis: {title: ''}, vAxis: {title: 'Area (km2)'},
+                 colors: classcol})
+     .setChartType('ColumnChart')
+print(chart)
+
+// get equidistant elevation bands from AHN for charting
+var elev      = ee.Image('AHN/AHN2_05M_INT')                              // get AHN dataset from catalog
+var stepping  = 2.5                                                       // elevation step size
+var elevsteps = ee.List.sequence(-5,50,stepping)                          // steps in range
+var itr       = ee.List.sequence(0,elevsteps.length().subtract(1),1)      // iterator list to loop over
+var elevbands   = ee.ImageCollection.fromImages(itr.map(function(i){             // loop over iterator i
+  var elevthres =  ee.Number(elevsteps.get(i))                                   // get elev_i
+  var elevband = elev.lte(elevthres).and(elev.gt(elevthres.subtract(stepping)))  // get boolean elevation band
+  var onlyband = elevband.updateMask(elevband.eq(1))                      // mask everything but true
+  return onlyband.set('system:index',ee.Number.parse(i).format('%04d'))   // set image index to i string with leading zeros
+}))
+
+// make chart of pixel count per class per elevation band
+var chart = ui.Chart.image.byClass({
+  image: elevbands.toBands().addBands(classimg.rename('classification')),
+  classBand: 'classification',
+  region: nl,
+  reducer: ee.Reducer.sum(),
+  scale: 30*30,
+  classLabels: classlab,
+  xLabels: elevsteps.getInfo(),
+})
+chart.setOptions({title:'Land cover with elevation', hAxis: {title: 'Elevation (m)'},
+              	lineWidth: 2, pointSize: 0, colors: classcol, isStacked: 'relative'})
+     .setChartType('AreaChart')
+print(chart)
+
+// make a chart for class distribution in each province
+var prov = ee.FeatureCollection('users/philipkraaijenbrink/dpg-workshop/provincies_nl')
+var sepclass = ee.Image(ee.List(classval).iterate(
+  function(x,y){return ee.Image(y).addBands(classimg.eq(ee.Image.constant(x)))},
+  ee.Image().select()))
+var chartlab = []; classval.forEach(function(val,i){chartlab.push(val+' '+classlab[i])});
+var chart = ui.Chart.image.byRegion({
+  image: sepclass.rename(chartlab),
+  regions: prov,
+  reducer: ee.Reducer.sum(),
+  scale: 30*30,
+  xProperty: 'provincien',
+}).setChartType('ColumnChart').setOptions({colors: classcol, isStacked: 'percent'})
+print(chart)

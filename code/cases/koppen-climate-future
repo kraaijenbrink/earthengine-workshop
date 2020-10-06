@@ -1,0 +1,49 @@
+// Köppen-Geiger climate maps from monthly aggregates of NEX-GDDP data
+//
+// © Philip Kraaijenbrink
+// 20180824
+//
+// Follows rules at https://www.britannica.com/science/Koppen-climate-classification
+
+// load data
+var nex  = ee.ImageCollection('users/philipkraaijenbrink/climate-data/nex-gddp-monthly-stats')
+var cont = ee.FeatureCollection('users/philipkraaijenbrink/general-vector/continents')
+
+// load extra custom code
+var kg = require('users/philipkraaijenbrink/tools:koppengeiger')
+var lg = require('users/philipkraaijenbrink/tools:legends')
+var cp = require('users/philipkraaijenbrink/tools:colorpals')
+
+// settings
+var period = [ee.Date('2070-01-01'),ee.Date('2099-12-31')]  // set period to map (must be within 1950-2099)
+var RCP    = 'rcp85'                                        // which RCP to use (either rcp45 or rcp85)
+
+// make subset of the nex data 
+var nex = nex.filterDate(period[0],period[1]).filter(ee.Filter.inList('scenario',['historical',RCP]))
+
+// apply scale factor and approximate tas from tasmin and tasmax
+var nex = nex.map(function(x){
+  return  x
+          .addBands(x.select(['tasmin_mean','tasmax_mean']).reduce(ee.Reducer.mean()).rename('tas'))
+          .addBands(x.select(['pr_mean']).rename('pr'))
+          .multiply(0.01)
+          .set('system:time_start',x.get('system:time_start'))
+          .set('month',x.get('month'))
+          .set('scenario',x.get('scenario'))
+})
+
+// run koppen classification
+var proc = kg.koppenMap(nex).clip(cont)
+var kop  = proc.select("zones")
+var tas  = proc.select('t_mean')
+var pr   = proc.select('r_mean')
+            
+// mapping            
+Map.centerObject(ee.Geometry.Point([0,20]),2)
+Map.addLayer(tas, {min:-5, max:35, palette: cp.getPalette('InfernoMPL',8)},'Annual T (°C)', false)
+Map.addLayer(pr, {min:300, max:2000, palette: cp.getPalette('ParulaML',8, true)},'Annual P (mm)', false)
+Map.addLayer(kop, {min: 0, max: 29, palette: kg.kopcols}, 'Köppen zones', true, 0.6)
+lg.classLegend(kg.kopval, kg.kopnames, kg.kopcols, 'Köppen', 'bottom-left', 'vertical')
+Map.setOptions('satellite')
+
+

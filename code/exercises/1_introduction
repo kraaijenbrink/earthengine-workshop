@@ -1,0 +1,37 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var aoi = /* color: #0b4a8b */ee.Geometry.Polygon(
+        [[[2.1912746981571445, 51.25190952933917],
+          [6.4100246981571445, 49.856010643382575],
+          [8.079946573157144, 53.55691837814142],
+          [4.7401028231571445, 53.66120784279991]]]);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+// landsat 8 top of atmosphere reflectance collection
+var lscol = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')
+
+// get first image in collection, print properies 
+print(lscol.first())
+
+// filter collection by time, space and metadata
+lscol = lscol.filterDate('2013-01-01','2017-12-31')
+             .filter(ee.Filter.calendarRange(5,9,'month'))
+             .filterBounds(aoi)
+             .filter(ee.Filter.lte('CLOUD_COVER', 20))
+
+// add first image in filtered collection to map
+var map1 = lscol.first()
+Map.addLayer(map1, {min:0, max:0.4, bands:['B6','B5','B4']}, 'First')
+
+// create median composite of all images in filtered collection
+var map2 = lscol.median()
+Map.addLayer(map2, {min:0, max:0.4, bands:['B5','B4','B3']}, 'Median')
+
+// clip image to polygon
+var map3 = map2.clip(aoi) 
+Map.addLayer(map3, {min:0.05, max:0.15, bands:['B4','B3','B2']}, 'Clipped')
+
+// export three bands of clipped image to Google Drive
+Export.image.toDrive({
+  image: map3.select('B3','B4','B5'),
+  description: 'test_export',
+  scale: 1500,
+})

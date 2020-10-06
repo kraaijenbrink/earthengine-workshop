@@ -1,0 +1,67 @@
+// Perform a water classification for every year examine river planform change
+// © Philip Kraaijenbrink
+//
+
+// thresholds on cloud cover and image quality  ======================================
+var maxcloudpct = 30
+var minquality  = 7 
+
+// load modules by philip
+var lg   = require('users/philipkraaijenbrink/tools:legends')
+var cp   = require('users/philipkraaijenbrink/tools:colorpals')
+var mp   = require('users/philipkraaijenbrink/tools:mapping')
+var util = require('users/philipkraaijenbrink/tools:utilities')
+
+// set extent of the area of interest
+var aoi = ee.Geometry.Rectangle([86.4,25.52,87.5,25.16])
+
+// get collection with landsat images of landsat 4, 5, 7 and 8
+var landsat = util.mergeLandsat([4,5,7,8], maxcloudpct, minquality, 'sur')
+
+// set extent of the area of interest
+var aoi = ee.Geometry.Rectangle([86.4,25.52,87.5,25.16])
+
+// apply cloud and shadow mask to each image in collection
+var ls_masked = landsat.map(function(x){
+  var cloudmask  = util.getQAFlags(x.select('qa'),5,5,'clouds')
+  var shadowmask = util.getQAFlags(x.select('qa'),3,3,'shadow')
+  return x.updateMask(cloudmask.eq(0))
+          .updateMask(shadowmask.eq(0))
+}).select(['blue','green','red','nir','swir1','swir2','tir'])
+
+// for each year between 1987 and 2017 get a composite image,
+// and add index and water classification bands
+var startyear = 1987
+var endyear   = 2017
+var loopsteps = ee.List.sequence(startyear,endyear,1)
+var yrcomps    = ee.ImageCollection.fromImages(loopsteps.map(function(y){    // loop over list with years
+  var sdate = ee.Date.fromYMD(y,1,1)                                         // startdate of current loop          
+  var edate = ee.Date.fromYMD(y,12,31)                                       // enddate of current loop
+  var comp = ls_masked.filterDate(sdate,edate).median()                      // get images of current year only and reduce to median composite
+  var index = comp.normalizedDifference(['green','nir']).rename('index')     // calculate water index image for the composite
+  var water = index.gte(-0.04).rename('water')                               // classify water by thresholding
+  return comp.addBands(index).addBands(water.updateMask(water))              // combine composite and additional bands
+             .set('system:time_start', sdate).set('system:index',sdate.format('yyyy'))   // set timestamp on image
+}))
+
+// remove years that may have no data by checking for band existence
+var yrcomps = yrcomps.filter(ee.Filter.listContains("system:band_names", "nir"));
+
+// combine water classifications of all years into single image
+var watyears = yrcomps.map(function(x){
+  var year = ee.Number.parse(ee.Date(x.get('system:time_start')).format('yyyy')).int()   // get year of image as number
+  var img  = ee.Image(x).select('water').int()                                           // select band with the classification
+  return img.eq(1).multiply(year).updateMask(img.eq(1)).int()                            // multiply by year and mask
+}).max()                       // apply max reducer to classification collection , i.e. most recent year wil be on top
+
+// make map
+var colpal  = cp.getPalette('JetML', 8, true)                // get color palette using module
+var mapyear = '2015'                                         // set year for which composite and classification are displayed
+Map.centerObject(aoi)
+Map.addLayer(yrcomps.filterDate(mapyear), {min:0, max:4000, bands:['swir2','nir','red']}, 'Image '+mapyear, false)
+Map.addLayer(yrcomps.filterDate(mapyear).select('index'), {min:-0.8, max:0.8}, 'Index '+mapyear, false)
+Map.addLayer(yrcomps.filterDate(mapyear).select('water'), {palette: ['darkblue']}, 'Water '+mapyear, false)
+Map.addLayer(watyears, {min:startyear,max:endyear,palette: colpal}, 'Water all years', true)
+
+lg.rampLegend(colpal, startyear, endyear, 'Year')        // generate colorramp legend using module
+mp.setBase('Browns')                                     // set different basemap using module

@@ -1,0 +1,56 @@
+// Perform regression on annual MODIS NDVI composites
+// © philip kraaijenbrink
+
+// time settings
+var yearrange  = [2000,2017];   // limit calculations to specific range of years
+var monthrange = [1,12];        // limit calculations to specific range of months
+
+// load MODIS NDVI collection 
+var ndvi = ee.ImageCollection("MODIS/006/MOD13A1");
+
+// Filter collection
+ndvi = ndvi.filterDate(yearrange[0]+'-01-01',yearrange[1]+'-12-31')
+           .filter(ee.Filter.calendarRange(monthrange[0],monthrange[1], 'month'))
+           .select('NDVI')  
+                    
+// scale appropriately
+ndvi = ndvi.map(function(x){return x.multiply(0.0001).set('system:time_start', x.get('system:time_start'))});
+
+// Perform temporal reduction to get yearly mean NDVI images
+var years     = ee.List.sequence(yearrange[0],yearrange[1]);
+var yearmeans = ee.ImageCollection.fromImages(
+                    years.map(function (yr) {
+                    return ndvi.filterDate(ee.Date.fromYMD(yr,1,1),ee.Date.fromYMD(yr,12,31))
+                               .mean()
+                               .set('year',yr)
+                               .set('monthrange',monthrange[0]+'-'+monthrange[1])
+                               .set('system:time_start', ee.Date.fromYMD(yr,1,1))
+                               // add image band with the year to use in the regression
+                               .addBands(ee.Image.constant(yr).rename('yr').float()) 
+}))
+var grandmean = yearmeans.select('NDVI').mean()
+
+// compute a linear fit between years and NDVI
+var fit = yearmeans.select("yr","NDVI").reduce(ee.Reducer.linearFit());
+
+// compute Pearson's correlation coefficient and probability value
+var cor = yearmeans.select("yr","NDVI").reduce(ee.Reducer.pearsonsCorrelation());
+
+// load philip's color palette and legend tools
+var cp = require('users/philipkraaijenbrink/tools:colorpals') // use cp.allPalettes() to show all palettes
+var lg = require('users/philipkraaijenbrink/tools:legends')
+
+// map the layers
+Map.centerObject(ee.Geometry.Point(95,30),5)
+Map.addLayer(grandmean, {min:0.0, max:0.7, palette:cp.getPalette("YlGn",9)},'NDVI',1)
+Map.addLayer(fit, {min: -0.006, max: 0.006, bands:'scale', palette: cp.getPalette("PiYG",9)},'NDVI trends', 0);
+Map.addLayer(cor, {min:-1, max:1, bands:'correlation', palette: cp.getPalette("RdBu",9)},'Correlation', 0);
+Map.addLayer(cor.lte(0.05), {min: '0', max: '1', bands: 'p-value',palette: ['lightgray','darkgreen']},'p<=0.05', 0);
+
+// create legends
+lg.rampLegend(cp.getPalette("YlGn",9),0,0.7, 'NDVI (-)')
+lg.rampLegend(cp.getPalette("PiYG",9), -6e-3,6e-3, 'NDVI trend (y^-1)')
+lg.rampLegend(cp.getPalette("RdBu",9),-1,1, 'Correlation (-)')
+lg.classLegend(undefined, ['False','True'], ['lightgray','darkgreen'], 'Significance')
+
+
