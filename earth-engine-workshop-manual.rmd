@@ -799,6 +799,8 @@ lg.classLegend(undefined, classnames, classcolors,'EOC classes')
 
 # Additional cases {-}
 
+![](figures/dynamic_ganges.jpg)
+
 Here you will find some additional example code displaying Earth Engine's capabilities.
 
 - [River planform dynamics](https://code.earthengine.google.com/2789cda0ddc315dfb8d0e4648a405611)
