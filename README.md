@@ -1,6 +1,8 @@
 # Google Earth Engine workshop
 
-This repository contains the manual and JavaScript code for my Google Earth Engine workshop. The exercises of this training are meant to give an idea of the capabilities of Google Earth Engine.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4068478.svg)
+
+This repository contains the manual and JavaScript code for my Google Earth Engine workshop. The exercises are meant to give you an idea of the capabilities of Google Earth Engine.
 
 Workshop material:
 
