@@ -1,7 +1,12 @@
 ---
 title: "Google Earth Engine workshop"
-author: "[Philip Kraaijenbrink](https://www.uu.nl/staff/PDAKraaijenbrink)"
+author: "[**Philip Kraaijenbrink**](https://www.uu.nl/staff/PDAKraaijenbrink)"
+description: Manual and code for Philip's Google Earth Engine workshop
 date: "October 6, 2020"
+github-repo: "kraaijenbrink/earthengine-workshop"
+url: "https://kraaijenbrink.github.io/earthengine-workshop"
+thumbnail: "figures/dynamic_ganges.jpg"
+featuredImage: "figures/dynamic_ganges.jpg"
 output:
   bookdown::gitbook:
     highlight: tango
@@ -9,12 +14,10 @@ output:
       toc:
         collapse: subsection
         scroll_highlight: yes
-        before: null
-        after: null
       toolbar:
         position: fixed
       edit : null
-      download: null
+      download: yes
       search: yes
       fontsettings:
         theme: white
@@ -61,6 +64,7 @@ There are various ways you can search for help on Earth Engine coding, among oth
 - Function help is available through the *docs* tab on the top left panel of the web interface.
 - A concise [user guide](https://developers.google.com/earth-engine/) with clear examples is accessible via the help dropdown menu in the top right corner of the web interface.
 - The developer discussion group is accessible via the help dropdown menu in the top right corner of the web interface. It has many discussions on a plethora of topics and often with example code written by other developers.
+- Community-driven [tutorials](https://developers.google.com/earth-engine/tutorials/community/beginners-cookbook) and [training material](https://developers.google.com/earth-engine/tutorials/ttt) are available from Google.
 
 
 
@@ -95,7 +99,9 @@ knitr::include_graphics('figures/cc-by-sa-icon.png')
 
 # Image classification
 
-**Generate a Landsat 8 composite image, perform a landcover classification of the image, and compare class distribution over elevation in the Netherlands.**
+![](figures/banner_1.jpg)
+
+**Generate a Landsat 8 composite image, perform a land cover classification of the image, and compare class distribution over elevation in the Netherlands.**
 
 
 ## Define input data
@@ -311,6 +317,8 @@ print(chart)
 
 # Quality mosaicking
 
+![](figures/banner_2.jpg)
+
 **Use a quality mosaicking approach to get both a low tide and high tide image composite, and classify water using simple thresholding on water index to generate a map showing intertidal area.**
 
 
@@ -482,7 +490,11 @@ The code works well, with some limitations, for the Western Scheldt estuary. How
 
 # Regression
 
-**Perform a regression analysis on MODIS NDVI to observe the spatial distribution of greening and drying over the last two decades. The NDVI stands for the [Normalized Difference Vegetation Index](https://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php) (-1: bare, to 1: highly vegetated), which is a measure for how much and how healthy vegetation is present in a pixel** 
+![](figures/banner_3.jpg)
+
+
+
+**Perform a regression analysis on MODIS [Normalized Difference Vegetation Index](https://earthobservatory.nasa.gov/Features/MeasuringVegetation/measuring_vegetation_2.php) to observe the spatial distribution of greening and drying over the last two decades.** 
 
 
 ## Settings and data
@@ -603,14 +615,17 @@ lg.classLegend(undefined, ['False','True'], ['lightgray','darkgreen'], 'Signific
 
 # Climate data analysis
 
-**Examine the expected global temperature rise and precipitation changes in the 21st century, aggregate them by country and make a simple global climate change classification. For this you will use yearly ensemble aggregates of the [NEX-GDDP dataset](https://nex.nasa.gov/nex/projects/1356/), which is downscaled CMIP5 climate model data.**
+
+![](figures/banner_4.jpg)
+
+
+**Examine the expected global temperature rise and precipitation changes in the 21st century, aggregate them by country and make a simple global climate change classification.**
 
 ## Define input data
 
-The NEX-GDDP dataset includes downscaled projections for [RCP4.5 and RCP8.5](https://en.wikipedia.org/wiki/Representative_Concentration_Pathways) from 21 Global Circulation Models and scenarios for which daily scenarios were produced and distributed under [CMIP5](https://en.wikipedia.org/wiki/Coupled_model_intercomparison_project). Each of the climate projections includes daily maximum temperature, minimum temperature, and precipitation for the periods from 1950 through 2099. The spatial resolution of the dataset is 0.25 degrees (approximately 27 by 27 km). The original NEX-GDDP data is present in the Earth Engine catalog. For the purpose of this exercise I have pre-aggregated it to yearly data and calculated model ensemble statistics using Earth Engine's computing power.
+For this you will use yearly ensemble aggregates of the [NEX-GDDP dataset](https://nex.nasa.gov/nex/projects/1356/), which is downscaled [CMIP5](https://en.wikipedia.org/wiki/Coupled_model_intercomparison_project) climate model data. The NEX-GDDP dataset includes daily projections for [RCP4.5 and RCP8.5](https://en.wikipedia.org/wiki/Representative_Concentration_Pathways) from 21 Global Circulation Models within CMIP5. The projections include daily minimum temperature, maximum temperature and precipitation for the period 1950–2099. The spatial resolution of the NEX-GDDP dataset is 0.25 degrees (approximately 27 by 27 km at the equator). The original NEX-GDDP data is present in the Earth Engine catalog. For the purpose of this exercise, however, I have pre-aggregated it to yearly data and calculated model ensemble statistics using Google Earth Engine's computing power.
 
-
-Load the aggregated NEX-GDDP data, MODIS water mask and custom code:
+Load the pre-aggregated NEX-GDDP data, MODIS water mask and custom code:
 
 ```{js}
 // load data

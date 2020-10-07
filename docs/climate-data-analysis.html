@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Climate data analysis | Google Earth Engine workshop</title>
-  <meta name="description" content="4 Climate data analysis | Google Earth Engine workshop" />
+  <meta name="description" content="Manual and code for Philip’s Google Earth Engine workshop" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Climate data analysis | Google Earth Engine workshop" />
   <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://kraaijenbrink.github.io/earthengine-workshop" />
   
-  
-  
-  
+  <meta property="og:description" content="Manual and code for Philip’s Google Earth Engine workshop" />
+  <meta name="github-repo" content="kraaijenbrink/earthengine-workshop" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="4 Climate data analysis | Google Earth Engine workshop" />
   
-  
+  <meta name="twitter:description" content="Manual and code for Philip’s Google Earth Engine workshop" />
   
 
 <meta name="author" content="Philip Kraaijenbrink" />
@@ -184,11 +184,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="climate-data-analysis" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Climate data analysis</h1>
-<p><strong>Examine the expected global temperature rise and precipitation changes in the 21st century, aggregate them by country and make a simple global climate change classification. For this you will use yearly ensemble aggregates of the <a href="https://nex.nasa.gov/nex/projects/1356/">NEX-GDDP dataset</a>, which is downscaled CMIP5 climate model data.</strong></p>
+<p><img src="figures/banner_4.jpg" /></p>
+<p><strong>Examine the expected global temperature rise and precipitation changes in the 21st century, aggregate them by country and make a simple global climate change classification.</strong></p>
 <div id="define-input-data-2" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Define input data</h2>
-<p>The NEX-GDDP dataset includes downscaled projections for <a href="https://en.wikipedia.org/wiki/Representative_Concentration_Pathways">RCP4.5 and RCP8.5</a> from 21 Global Circulation Models and scenarios for which daily scenarios were produced and distributed under <a href="https://en.wikipedia.org/wiki/Coupled_model_intercomparison_project">CMIP5</a>. Each of the climate projections includes daily maximum temperature, minimum temperature, and precipitation for the periods from 1950 through 2099. The spatial resolution of the dataset is 0.25 degrees (approximately 27 by 27 km). The original NEX-GDDP data is present in the Earth Engine catalog. For the purpose of this exercise I have pre-aggregated it to yearly data and calculated model ensemble statistics using Earth Engine’s computing power.</p>
-<p>Load the aggregated NEX-GDDP data, MODIS water mask and custom code:</p>
+<p>For this you will use yearly ensemble aggregates of the <a href="https://nex.nasa.gov/nex/projects/1356/">NEX-GDDP dataset</a>, which is downscaled <a href="https://en.wikipedia.org/wiki/Coupled_model_intercomparison_project">CMIP5</a> climate model data. The NEX-GDDP dataset includes daily projections for <a href="https://en.wikipedia.org/wiki/Representative_Concentration_Pathways">RCP4.5 and RCP8.5</a> from 21 Global Circulation Models within CMIP5. The projections include daily minimum temperature, maximum temperature and precipitation for the period 1950–2099. The spatial resolution of the NEX-GDDP dataset is 0.25 degrees (approximately 27 by 27 km at the equator). The original NEX-GDDP data is present in the Earth Engine catalog. For the purpose of this exercise, however, I have pre-aggregated it to yearly data and calculated model ensemble statistics using Google Earth Engine’s computing power.</p>
+<p>Load the pre-aggregated NEX-GDDP data, MODIS water mask and custom code:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb28-1"><a href="climate-data-analysis.html#cb28-1"></a><span class="co">// load data</span></span>
 <span id="cb28-2"><a href="climate-data-analysis.html#cb28-2"></a><span class="kw">var</span> nexy  <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">&#39;users/philipkraaijenbrink/climate-data/nex-gddp-yearly-stats&#39;</span>)</span>
 <span id="cb28-3"><a href="climate-data-analysis.html#cb28-3"></a><span class="kw">var</span> wmask <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">&#39;MODIS/MOD44W/MOD44W_005_2000_02_24&#39;</span>)<span class="op">.</span><span class="fu">select</span>(<span class="st">&#39;water_mask&#39;</span>)</span>
