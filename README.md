@@ -1,6 +1,6 @@
 # Google Earth Engine workshop
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4068478.svg)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4068478.svg)](https://doi.org/10.5281/zenodo.4068478)
 
 This repository contains the manual and JavaScript code for my Google Earth Engine workshop. The exercises are meant to give you an idea of the capabilities of Google Earth Engine.
 
